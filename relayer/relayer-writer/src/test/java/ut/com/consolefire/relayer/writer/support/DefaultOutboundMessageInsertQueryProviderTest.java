@@ -13,22 +13,11 @@ public class DefaultOutboundMessageInsertQueryProviderTest {
 
 
     private static final String NO_PARAM_INSERT_SQL_WITH_SCHEMA = "insert into " + SCHEMA_MESSAGE_STORE + "." + TABLE_OUTBOUND_MESSAGE + " ("
-            + "message_id, message_sequence, group_id, channel_name, payload, headers, metadata, state, relayed_at, relay_count, created_at, updated_at"
-            + ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            + "message_id, group_id, channel_name, payload, headers, metadata, state, relayed_at, relay_count, created_at, updated_at"
+            + ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String NO_PARAM_INSERT_SQL_WITHOUT_SCHEMA = "insert into " + TABLE_OUTBOUND_MESSAGE + " ("
-            + "message_id, message_sequence, group_id, channel_name, payload, headers, metadata, state, relayed_at, relay_count, created_at, updated_at"
-            + ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    private static final String NAMED_PARAM_INSERT_SQL_WITH_SCHEMA = "insert into " + SCHEMA_MESSAGE_STORE + "." + TABLE_OUTBOUND_MESSAGE + " ("
-            + "message_id, message_sequence, group_id, channel_name, payload, headers, metadata, state, relayed_at, relay_count, created_at, updated_at"
-            + ") values ("
-            + ":p_message_id, :p_message_sequence, :p_group_id, :p_channel_name, :p_payload, :p_headers, :p_metadata, :p_state, :p_relayed_at, :p_relay_count, :p_created_at, :p_updated_at"
-            + ")";
-    private static final String NAMED_PARAM_INSERT_SQL_WITHOUT_SCHEMA = "insert into " + TABLE_OUTBOUND_MESSAGE + " ("
-            + "message_id, message_sequence, group_id, channel_name, payload, headers, metadata, state, relayed_at, relay_count, created_at, updated_at"
-            + ") values ("
-            + ":p_message_id, :p_message_sequence, :p_group_id, :p_channel_name, :p_payload, :p_headers, :p_metadata, :p_state, :p_relayed_at, :p_relay_count, :p_created_at, :p_updated_at"
-            + ")";
+            + "message_id, group_id, channel_name, payload, headers, metadata, state, relayed_at, relay_count, created_at, updated_at"
+            + ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static void logAndAssertGeneratedStatement(String expectedStatement, String statement) {
         log.info("Expected Statement: {}", expectedStatement);

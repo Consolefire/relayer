@@ -88,7 +88,7 @@ public class DefaultJdbcMessageWriterTest {
             .withUpdatedAt(Instant.now())
             .withState(MessageState.NEW)
             .withRelayCount(0)
-            .withRelayedAt(new Date())
+            .withRelayedAt(Instant.now())
             .build();
         outboundMessageWriter.write(expectedMessage);
         @Cleanup Connection connection = dataSource.getConnection();

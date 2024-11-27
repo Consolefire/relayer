@@ -3,7 +3,6 @@ create schema if not exists message_store;
 create table if not exists message_store.outbound_message
 (
     message_id       CHARACTER VARYING(64)            not null,
-    message_sequence BIGINT                           not null,
     group_id         CHARACTER VARYING(128)           not null,
     channel_name     CHARACTER VARYING(256)           not null,
     payload          CHARACTER VARYING,
@@ -21,7 +20,6 @@ create table if not exists message_store.outbound_message
 create table if not exists message_store.sidelined_message
 (
     message_id       CHARACTER VARYING(64)            not null,
-    message_sequence BIGINT                           not null,
     group_id         CHARACTER VARYING(128)           not null,
     channel_name     CHARACTER VARYING(256)           not null,
     payload          CHARACTER VARYING,

@@ -1,6 +1,6 @@
 package com.consolefire.relayer.writer;
 
-import com.consolefire.relayer.model.OutboundMessage;
+import com.consolefire.relayer.model.outbox.OutboundMessage;
 import com.consolefire.relayer.model.helper.MessageCopier;
 import com.consolefire.relayer.model.validation.MessageValidator;
 import com.consolefire.relayer.writer.interceptor.AfterWriteInterceptor;

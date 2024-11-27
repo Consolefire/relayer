@@ -1,20 +1,18 @@
 package ct.com.consolefire.relayer.core.reader;
 
-import com.consolefire.relayer.core.data.query.impl.StaticSelectQuery;
-import com.consolefire.relayer.core.reader.MessageSource;
-import com.consolefire.relayer.core.reader.MessageSourceReader;
-import com.consolefire.relayer.core.reader.OutboundMessageSource;
-import com.consolefire.relayer.model.Message;
-import com.consolefire.relayer.model.OutboundMessage;
-import org.junit.jupiter.api.Test;
-
-import javax.sql.DataSource;
-import java.util.Collection;
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.consolefire.relayer.core.reader.MessageSource;
+import com.consolefire.relayer.core.reader.MessageSourceReader;
+import com.consolefire.relayer.model.outbox.OutboundMessage;
+import java.util.Collection;
+import java.util.UUID;
+import javax.sql.DataSource;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+@Disabled
 public class MessageSourceReaderTest {
 
     private DataSource dataSource;

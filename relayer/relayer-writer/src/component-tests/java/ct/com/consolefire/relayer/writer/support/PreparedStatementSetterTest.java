@@ -91,7 +91,7 @@ public class PreparedStatementSetterTest {
                 .withUpdatedAt(Instant.now())
                 .withState(MessageState.NEW)
                 .withRelayCount(0)
-                .withRelayedAt(new Date())
+                .withRelayedAt(Instant.now())
                 .build();
 
 
