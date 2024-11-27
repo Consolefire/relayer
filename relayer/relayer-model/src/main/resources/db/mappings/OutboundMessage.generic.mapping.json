@@ -1,0 +1,65 @@
+{
+  "className": "com.consolefire.relayer.model.OutboundMessage",
+  "tableName": "outbound_messages",
+  "properties": {
+    "messageId": {
+      "column": {
+        "name": "MESSAGE_ID",
+        "jdbcType": "NVARCHAR",
+        "length": 64,
+        "requiredInsert": true,
+        "updatable": false
+      }
+    },
+    "messageSequence": {
+      "column": {
+        "name": "MESSAGE_SEQUENCE",
+        "jdbcType": "BIGINT",
+        "requiredInsert": true,
+        "updatable": false
+      }
+    },
+    "groupId": {
+      "column": {
+        "name": "GROUP_ID",
+        "jdbcType": "NVARCHAR",
+        "length": 255,
+        "requiredInsert": true,
+        "updatable": true
+      }
+    },
+    "payload": {
+      "column": {
+        "name": "PAYLOAD",
+        "jdbcType": "LONGNVARCHAR",
+        "requiredInsert": true,
+        "updatable": true
+      }
+    },
+    "headers": {
+      "column": {
+        "name": "HEADERS",
+        "jdbcType": "LONGNVARCHAR",
+        "requiredInsert": true,
+        "updatable": true
+      }
+    },
+    "metadata": {
+      "column": {
+        "name": "METADATA",
+        "jdbcType": "LONGNVARCHAR",
+        "requiredInsert": true,
+        "updatable": true
+      }
+    },
+    "state": {
+      "column": {
+        "name": "STATE",
+        "length": 120,
+        "jdbcType": "NVARCHAR",
+        "requiredInsert": true,
+        "updatable": true
+      }
+    }
+  }
+}
