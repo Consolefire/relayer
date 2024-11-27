@@ -24,7 +24,7 @@
         <target.java.version>23</target.java.version>
         <!-- External Dependency Versions -->
         <slf4j.version>2.0.16</slf4j.version>
-        <lombok.version>1.18.30</lombok.version>
+        <lombok.version>1.18.36</lombok.version>
         <jackson-bom.version>2.17.1</jackson-bom.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <shard4j.version>1.0-SNAPSHOT</shard4j.version>
