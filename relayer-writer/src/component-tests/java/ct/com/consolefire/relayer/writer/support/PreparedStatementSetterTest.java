@@ -20,7 +20,6 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ParameterMetaData;
 import java.sql.PreparedStatement;
-import java.util.Date;
 import java.util.UUID;
 
 import static com.consolefire.relayer.testutils.data.TestMessageStoreMetadata.*;
