@@ -54,7 +54,7 @@
         <allure-plugin.version>2.15.2</allure-plugin.version>
         <aspectj-maven-plugin.version>1.15.0</aspectj-maven-plugin.version>
         <jacoco-maven-plugin.version>${jacoco.version}</jacoco-maven-plugin.version>
-        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
         <!-- Paths -->
         <path.to.aspectj.sources>src/main/aspectj</path.to.aspectj.sources>
         <path.to.aspectj.tests>src/test/aspectj</path.to.aspectj.tests>
