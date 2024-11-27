@@ -30,7 +30,7 @@
         <shard4j.version>1.0-SNAPSHOT</shard4j.version>
         <org.aspectj.version>1.9.22.1</org.aspectj.version>
         <io.micrometer.version>1.13.2</io.micrometer.version>
-        <guava.version>33.3.0-jre</guava.version>
+        <guava.version>33.3.1-jre</guava.version>
 
         <commons-codec.version>1.17.1</commons-codec.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
