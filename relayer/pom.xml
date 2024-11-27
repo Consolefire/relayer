@@ -27,7 +27,6 @@
         <lombok.version>1.18.36</lombok.version>
         <jackson-bom.version>2.18.1</jackson-bom.version>
         <mapstruct.version>1.6.3</mapstruct.version>
-        <shard4j.version>1.0-SNAPSHOT</shard4j.version>
         <org.aspectj.version>1.9.22.1</org.aspectj.version>
         <io.micrometer.version>1.13.2</io.micrometer.version>
         <guava.version>33.3.1-jre</guava.version>
@@ -93,12 +92,6 @@
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
                 <scope>compile</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>com.consolefire</groupId>
-                <artifactId>shard4j-core</artifactId>
-                <version>${shard4j.version}</version>
             </dependency>
 
             <dependency>
