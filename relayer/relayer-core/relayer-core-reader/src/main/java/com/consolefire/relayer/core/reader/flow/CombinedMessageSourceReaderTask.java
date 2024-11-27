@@ -3,7 +3,7 @@ package com.consolefire.relayer.core.reader.flow;
 import com.consolefire.relayer.core.reader.OutboundMessageSource;
 import com.consolefire.relayer.core.reader.SidelinedMessageSource;
 import com.consolefire.relayer.model.OutboundMessage;
-import com.consolefire.relayer.model.SidelinedMessage;
+import com.consolefire.relayer.model.outbox.SidelinedMessage;
 import lombok.NonNull;
 
 import java.io.Serializable;

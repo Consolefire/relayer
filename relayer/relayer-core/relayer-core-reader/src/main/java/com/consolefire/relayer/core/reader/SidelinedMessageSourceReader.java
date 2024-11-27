@@ -1,6 +1,6 @@
 package com.consolefire.relayer.core.reader;
 
-import com.consolefire.relayer.model.SidelinedMessage;
+import com.consolefire.relayer.model.outbox.SidelinedMessage;
 
 import java.io.Serializable;
 

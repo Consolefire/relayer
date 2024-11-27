@@ -1,11 +1,17 @@
-package com.consolefire.relayer.model.helper;
+package com.consolefire.relayer.model.builder;
 
 import com.consolefire.relayer.model.Message;
+import com.consolefire.relayer.model.MessageState;
 import com.consolefire.relayer.model.ModelConstants;
 import com.consolefire.relayer.model.conversion.DefaultObjectToStringConverter;
 import com.consolefire.relayer.model.conversion.MessageHeaderConverter;
 import com.consolefire.relayer.model.conversion.MessageMetadataConverter;
 import com.consolefire.relayer.model.conversion.MessagePayloadConverter;
+import com.consolefire.relayer.model.helper.MessageGroupIdGenerator;
+import com.consolefire.relayer.model.helper.MessageIdGenerator;
+import com.consolefire.relayer.model.helper.MessageSequenceGenerator;
+import com.consolefire.relayer.model.outbox.OutboundMessageBuilder;
+import java.time.Instant;
 import lombok.NonNull;
 
 import java.io.Serializable;
@@ -25,8 +31,9 @@ public abstract class MessageBuilder<ID extends Serializable, PAYLOAD, HEADER, M
     protected PAYLOAD payload;
     protected HEADER headers;
     protected META metadata;
-    protected Date createdAt;
-    protected Date updatedAt;
+    protected MessageState state;
+    protected Instant createdAt;
+    protected Instant updatedAt;
     protected Optional<MessageIdGenerator<ID>> messageIdGenerator;
     protected Optional<MessageSequenceGenerator> messageSequenceGenerator;
     protected Optional<MessageGroupIdGenerator<PAYLOAD, META>> messageGroupIdGenerator;
@@ -94,12 +101,17 @@ public abstract class MessageBuilder<ID extends Serializable, PAYLOAD, HEADER, M
         return self();
     }
 
-    public final B withCreatedAt(Date createdAt) {
+    public final B withState(MessageState state) {
+        this.state = state;
+        return self();
+    }
+
+    public final B withCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
         return self();
     }
 
-    public final B withUpdatedAt(Date updatedAt) {
+    public final B withUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
         return self();
     }
@@ -160,7 +172,6 @@ public abstract class MessageBuilder<ID extends Serializable, PAYLOAD, HEADER, M
     public final @NonNull M build() {
         M message = initMessage();
 
-
         message.setMessageId(
                 Optional.ofNullable(this.messageId) // set the ID provided
                         .orElseGet(() -> Optional.ofNullable(this.messageIdSupplier).map(Supplier::get) // set from the ID Supplier
@@ -168,14 +179,9 @@ public abstract class MessageBuilder<ID extends Serializable, PAYLOAD, HEADER, M
                                         .orElse(null))) // otherwise NULL
         );
 
-        message.setMessageSequence(
-                Optional.ofNullable(this.messageSequence)
-                        .orElseGet(() -> Optional.ofNullable(this.messageSequenceSupplier).map(Supplier::get)
-                                .orElseGet(() -> this.messageSequenceGenerator.map(MessageSequenceGenerator::next)
-                                        .orElse(null)))
-        );
+        message.setState(this.state);
 
-        message.setCreatedAt(Optional.ofNullable(this.createdAt).orElse(new Date()));
+        message.setCreatedAt(Optional.ofNullable(this.createdAt).orElse(Instant.now()));
         message.setUpdatedAt(this.updatedAt);
 
         message.setHeaders(this.messageHeaderConverter

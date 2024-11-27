@@ -1,6 +1,6 @@
 package com.consolefire.relayer.core.reader.flow;
 
-import com.consolefire.relayer.model.SidelinedMessage;
+import com.consolefire.relayer.model.outbox.SidelinedMessage;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;

@@ -1,7 +1,8 @@
 package com.consolefire.relayer.writer.jdbc;
 
 import com.consolefire.relayer.core.data.query.InsertQuery;
-import com.consolefire.relayer.model.OutboundMessage;
+import com.consolefire.relayer.model.Message;
+import com.consolefire.relayer.model.outbox.OutboundMessage;
 import com.consolefire.relayer.util.jdbc.SqlDateUtils;
 
 import java.io.Serializable;
@@ -27,8 +28,8 @@ public abstract class OutboundMessageInsertPreparedStatementSetter<ID extends Se
             preparedStatement.setString(insertQuery.indexOf(getColumnName(OutboundMessage.Fields.channelName.name())),
                     message.getChannelName());
         }
-        if (insertQuery.getColumnIndexes().containsKey(getColumnName(OutboundMessage.Fields.state.name()))) {
-            preparedStatement.setString(insertQuery.indexOf(getColumnName(OutboundMessage.Fields.state.name())),
+        if (insertQuery.getColumnIndexes().containsKey(getColumnName(Message.Fields.state.name()))) {
+            preparedStatement.setString(insertQuery.indexOf(getColumnName(Message.Fields.state.name())),
                     Optional.ofNullable(message.getState().name()).orElse(null));
         }
 

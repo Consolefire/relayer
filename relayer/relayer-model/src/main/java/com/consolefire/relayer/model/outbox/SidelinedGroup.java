@@ -1,4 +1,4 @@
-package com.consolefire.relayer.model;
+package com.consolefire.relayer.model.outbox;
 
 import lombok.*;
 import lombok.experimental.FieldNameConstants;

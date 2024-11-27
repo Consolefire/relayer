@@ -1,8 +1,8 @@
 package com.consolefire.relayer.testutils.data;
 
 import com.consolefire.relayer.model.Message;
-import com.consolefire.relayer.model.OutboundMessage;
-import com.consolefire.relayer.model.SidelinedMessage;
+import com.consolefire.relayer.model.outbox.OutboundMessage;
+import com.consolefire.relayer.model.outbox.SidelinedMessage;
 import com.consolefire.relayer.util.jdbc.ColumnInfo;
 import com.consolefire.relayer.util.jdbc.JavaFieldInfo;
 
@@ -49,9 +49,6 @@ public class TestMessageStoreMetadata {
                 fieldInfoOutboundMessage.withFieldName(Message.Fields.messageId.name()),
                 ColumnInfo.builder().columnName(CN_MESSAGE_ID).javaType(UUID.class).jdbcType(JDBCType.VARCHAR).serialNumber(1).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
-                fieldInfoOutboundMessage.withFieldName(Message.Fields.messageSequence.name()),
-                ColumnInfo.builder().columnName(CN_MESSAGE_SEQUENCE).javaType(Long.class).jdbcType(JDBCType.BIGINT).serialNumber(2).build());
-        OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoOutboundMessage.withFieldName(Message.Fields.groupId.name()),
                 ColumnInfo.builder().columnName(CN_GROUP_ID).javaType(String.class).jdbcType(JDBCType.VARCHAR).serialNumber(3).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
@@ -67,7 +64,7 @@ public class TestMessageStoreMetadata {
                 fieldInfoOutboundMessage.withFieldName(Message.Fields.metadata.name()),
                 ColumnInfo.builder().columnName(CN_METADATA).javaType(String.class).jdbcType(JDBCType.BLOB).serialNumber(7).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
-                fieldInfoOutboundMessage.withFieldName(OutboundMessage.Fields.state.name()),
+                fieldInfoOutboundMessage.withFieldName(Message.Fields.state.name()),
                 ColumnInfo.builder().columnName(CN_STATE).javaType(String.class).jdbcType(JDBCType.VARCHAR).serialNumber(8).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoOutboundMessage.withFieldName(OutboundMessage.Fields.relayedAt.name()),
@@ -94,11 +91,5 @@ public class TestMessageStoreMetadata {
         SIDELINED_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoSidelinedMessage.withFieldName(Message.Fields.groupId.name()),
                 ColumnInfo.builder().columnName(CN_GROUP_ID).javaType(String.class).jdbcType(JDBCType.VARCHAR).serialNumber(2).build());
-        SIDELINED_MESSAGE_COLUMN_MAPPINGS.put(
-                fieldInfoSidelinedMessage.withFieldName(SidelinedMessage.Fields.retryCount.name()),
-                ColumnInfo.builder().columnName(CN_RETRY_COUNT).javaType(Integer.class).jdbcType(JDBCType.INTEGER).serialNumber(3).build());
-        SIDELINED_MESSAGE_COLUMN_MAPPINGS.put(
-                fieldInfoSidelinedMessage.withFieldName(SidelinedMessage.Fields.lastTriedAt.name()),
-                ColumnInfo.builder().columnName(CN_LAST_TRIED_AT).javaType(Date.class).jdbcType(JDBCType.TIMESTAMP_WITH_TIMEZONE).serialNumber(4).build());
     }
 }

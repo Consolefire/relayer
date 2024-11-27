@@ -14,7 +14,6 @@ public abstract class BaseMessageCopier<ID extends Serializable, M extends Messa
             throw new RuntimeException("Cannot initiate target message");
         }
         copiedMessage.setMessageId(message.getMessageId());
-        copiedMessage.setMessageSequence(message.getMessageSequence());
         copiedMessage.setGroupId(message.getGroupId());
         copiedMessage.setHeaders(message.getHeaders());
         copiedMessage.setPayload(message.getPayload());

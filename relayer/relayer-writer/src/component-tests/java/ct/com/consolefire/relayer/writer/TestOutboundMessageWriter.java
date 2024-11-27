@@ -2,7 +2,11 @@ package ct.com.consolefire.relayer.writer;
 
 import com.consolefire.relayer.core.data.PreparedStatementSetter;
 import com.consolefire.relayer.core.data.query.InsertQuery;
-import com.consolefire.relayer.model.OutboundMessage;
+import com.consolefire.relayer.model.helper.MessageCopier;
+import com.consolefire.relayer.model.outbox.OutboundMessage;
+import com.consolefire.relayer.model.validation.MessageValidator;
+import com.consolefire.relayer.writer.interceptor.AfterWriteInterceptor;
+import com.consolefire.relayer.writer.interceptor.BeforeWriteInterceptor;
 import com.consolefire.relayer.writer.jdbc.AbstractJdbcMessageWriter;
 import com.consolefire.relayer.writer.support.MessageInsertQueryProvider;
 
@@ -17,8 +21,16 @@ public class TestOutboundMessageWriter extends AbstractJdbcMessageWriter<UUID, O
 
     private final DataSource dataSource;
 
-    public TestOutboundMessageWriter(MessageInsertQueryProvider messageInsertQueryProvider, PreparedStatementSetter<UUID, OutboundMessage<UUID>> preparedStatementSetter, DataSource dataSource) {
-        super(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), messageInsertQueryProvider, preparedStatementSetter);
+    public TestOutboundMessageWriter(
+        Optional<MessageValidator<UUID, OutboundMessage<UUID>>> uuidOutboundMessageMessageValidator,
+        Optional<BeforeWriteInterceptor<UUID, OutboundMessage<UUID>>> uuidOutboundMessageBeforeWriteInterceptor,
+        Optional<AfterWriteInterceptor<UUID, OutboundMessage<UUID>>> uuidOutboundMessageAfterWriteInterceptor,
+        Optional<MessageCopier<UUID, OutboundMessage<UUID>>> uuidOutboundMessageMessageCopier,
+        MessageInsertQueryProvider messageInsertQueryProvider,
+        PreparedStatementSetter<OutboundMessage<UUID>> preparedStatementSetter, DataSource dataSource) {
+        super(uuidOutboundMessageMessageValidator, uuidOutboundMessageBeforeWriteInterceptor,
+            uuidOutboundMessageAfterWriteInterceptor, uuidOutboundMessageMessageCopier, messageInsertQueryProvider,
+            preparedStatementSetter);
         this.dataSource = dataSource;
     }
 

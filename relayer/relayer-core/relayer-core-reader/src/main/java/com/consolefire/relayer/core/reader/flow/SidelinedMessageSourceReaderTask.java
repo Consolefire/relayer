@@ -2,7 +2,7 @@ package com.consolefire.relayer.core.reader.flow;
 
 import com.consolefire.relayer.core.checkpoint.MessageSourceCheckpoint;
 import com.consolefire.relayer.core.reader.SidelinedMessageSource;
-import com.consolefire.relayer.model.SidelinedMessage;
+import com.consolefire.relayer.model.outbox.SidelinedMessage;
 import lombok.Builder;
 
 import java.io.Serializable;

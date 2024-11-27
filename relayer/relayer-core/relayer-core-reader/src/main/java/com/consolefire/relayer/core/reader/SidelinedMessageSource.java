@@ -3,7 +3,7 @@ package com.consolefire.relayer.core.reader;
 import com.consolefire.relayer.core.data.MessageRowMapper;
 import com.consolefire.relayer.core.data.PreparedStatementSetter;
 import com.consolefire.relayer.core.data.query.SelectQuery;
-import com.consolefire.relayer.model.SidelinedMessage;
+import com.consolefire.relayer.model.outbox.SidelinedMessage;
 
 import javax.sql.DataSource;
 import java.io.Serializable;

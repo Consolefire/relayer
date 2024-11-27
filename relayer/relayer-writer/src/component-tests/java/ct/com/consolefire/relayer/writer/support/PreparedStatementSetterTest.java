@@ -3,12 +3,13 @@ package ct.com.consolefire.relayer.writer.support;
 import com.radcortez.flyway.test.annotation.FlywayTest;
 import com.consolefire.relayer.core.data.query.InsertQuery;
 import com.consolefire.relayer.model.MessageState;
-import com.consolefire.relayer.model.OutboundMessage;
-import com.consolefire.relayer.model.helper.OutboundMessageBuilder;
+import com.consolefire.relayer.model.outbox.OutboundMessage;
+import com.consolefire.relayer.model.outbox.OutboundMessageBuilder;
 import com.consolefire.relayer.testutils.data.H2InMemoryDataSourceBuilder;
 import com.consolefire.relayer.testutils.data.TestDataSource;
 import com.consolefire.relayer.testutils.ext.DataSourceAwareExtension;
 import com.consolefire.relayer.writer.support.DefaultOutboundMessageInsertQueryProvider;
+import java.time.Instant;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -86,8 +87,8 @@ public class PreparedStatementSetterTest {
                 .withPayload("payload")
                 .withHeaders("headers")
                 .withMetadata("metadata")
-                .withCreatedAt(new Date())
-                .withUpdatedAt(new Date())
+                .withCreatedAt(Instant.now())
+                .withUpdatedAt(Instant.now())
                 .withState(MessageState.NEW)
                 .withRelayCount(0)
                 .withRelayedAt(new Date())
