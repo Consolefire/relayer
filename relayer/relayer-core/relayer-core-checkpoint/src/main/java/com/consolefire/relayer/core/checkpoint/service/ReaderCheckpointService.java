@@ -4,9 +4,14 @@ import com.consolefire.relayer.core.checkpoint.ReaderCheckpoint;
 
 public interface ReaderCheckpointService {
 
-    ReaderCheckpoint findByIdentifier(String readerIdentifier);
+    ReaderCheckpoint initialize(String sourceIdentifier);
 
-    ReaderCheckpoint save(ReaderCheckpoint readerCheckpoint);
+    ReaderCheckpoint complete(String sourceIdentifier);
 
-    ReaderCheckpoint reset(ReaderCheckpoint readerCheckpoint);
+    ReaderCheckpoint reset(String sourceIdentifier);
+
+    void delete(String sourceIdentifier);
+
+    boolean validate(String readerIdentifier);
+
 }

@@ -4,8 +4,7 @@ import com.consolefire.relayer.core.data.MessageRowMapper;
 import com.consolefire.relayer.core.data.PreparedStatementSetter;
 import com.consolefire.relayer.core.data.query.SelectQuery;
 import com.consolefire.relayer.core.reader.MessageSource;
-import com.consolefire.relayer.core.reader.OutboundMessageSourceReader;
-import com.consolefire.relayer.model.OutboundMessage;
+import com.consolefire.relayer.model.outbox.OutboundMessage;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -17,7 +16,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 
-public class TestMessageSourceReader implements OutboundMessageSourceReader<UUID> {
+public class TestMessageSourceReader implements
+    com.consolefire.relayer.core.reader.MessageSourceReader<UUID, OutboundMessage<UUID>> {
 
 
     @Override

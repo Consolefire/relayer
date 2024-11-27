@@ -1,31 +1,37 @@
 package com.consolefire.relayer.core.checkpoint.service.impl;
 
 import com.consolefire.relayer.core.checkpoint.ReaderCheckpoint;
-import com.consolefire.relayer.core.checkpoint.data.repo.ReaderCheckpointRepository;
 import com.consolefire.relayer.core.checkpoint.service.ReaderCheckpointService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
 public class DefaultReaderCheckpointService implements ReaderCheckpointService {
 
-    private final ReaderCheckpointRepository readerCheckpointRepository;
 
     @Override
-    public ReaderCheckpoint findByIdentifier(String readerIdentifier) {
+    public ReaderCheckpoint initialize(String sourceIdentifier) {
         return null;
     }
 
     @Override
-    public ReaderCheckpoint save(ReaderCheckpoint readerCheckpoint) {
+    public ReaderCheckpoint complete(String sourceIdentifier) {
         return null;
     }
 
     @Override
-    public ReaderCheckpoint reset(ReaderCheckpoint readerCheckpoint) {
+    public ReaderCheckpoint reset(String sourceIdentifier) {
         return null;
+    }
+
+    @Override
+    public void delete(String sourceIdentifier) {
+
+    }
+
+    @Override
+    public boolean validate(String readerIdentifier) {
+        return false;
     }
 }

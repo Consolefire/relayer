@@ -1,36 +1,27 @@
 package com.consolefire.relayer.core.checkpoint;
 
+import java.io.Serializable;
+import java.time.Instant;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-
-import java.io.Serializable;
-import java.util.Objects;
 
 @Getter
 @ToString
 @SuperBuilder
+@EqualsAndHashCode
 public abstract class Checkpoint<ID extends Serializable> {
 
     protected final ID identifier;
-    protected final String referenceCheckpointId;
+    protected final boolean completed;
+    protected final Instant createdAt;
+    protected final Instant expiresAt;
 
-    public Checkpoint(@NonNull ID identifier, String referenceCheckpointId) {
+    public Checkpoint(ID identifier, boolean completed, Instant createdAt, Instant expiresAt) {
         this.identifier = identifier;
-        this.referenceCheckpointId = referenceCheckpointId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Checkpoint<?> that)) return false;
-        return Objects.equals(identifier, that.identifier)
-                && Objects.equals(referenceCheckpointId, that.referenceCheckpointId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(identifier, referenceCheckpointId);
+        this.completed = completed;
+        this.createdAt = createdAt;
+        this.expiresAt = expiresAt;
     }
 }

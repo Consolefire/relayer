@@ -3,8 +3,6 @@ package com.consolefire.relayer.writer.jdbc;
 import com.consolefire.relayer.core.data.query.InsertQuery;
 import com.consolefire.relayer.model.Message;
 import com.consolefire.relayer.model.outbox.OutboundMessage;
-import com.consolefire.relayer.util.jdbc.SqlDateUtils;
-
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -34,8 +32,8 @@ public abstract class OutboundMessageInsertPreparedStatementSetter<ID extends Se
         }
 
         if (insertQuery.getColumnIndexes().containsKey(getColumnName(OutboundMessage.Fields.relayedAt.name()))) {
-            preparedStatement.setDate(insertQuery.indexOf(getColumnName(OutboundMessage.Fields.relayedAt.name())),
-                    SqlDateUtils.toSqlDate(message.getRelayedAt()));
+            preparedStatement.setTimestamp(insertQuery.indexOf(getColumnName(OutboundMessage.Fields.relayedAt.name())),
+                java.sql.Timestamp.from(message.getRelayedAt()));
         }
 
         if (insertQuery.getColumnIndexes().containsKey(getColumnName(OutboundMessage.Fields.relayCount.name()))) {

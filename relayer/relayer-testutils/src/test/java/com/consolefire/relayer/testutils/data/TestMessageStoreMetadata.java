@@ -50,34 +50,34 @@ public class TestMessageStoreMetadata {
                 ColumnInfo.builder().columnName(CN_MESSAGE_ID).javaType(UUID.class).jdbcType(JDBCType.VARCHAR).serialNumber(1).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoOutboundMessage.withFieldName(Message.Fields.groupId.name()),
-                ColumnInfo.builder().columnName(CN_GROUP_ID).javaType(String.class).jdbcType(JDBCType.VARCHAR).serialNumber(3).build());
+                ColumnInfo.builder().columnName(CN_GROUP_ID).javaType(String.class).jdbcType(JDBCType.VARCHAR).serialNumber(2).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoOutboundMessage.withFieldName(OutboundMessage.Fields.channelName.name()),
-                ColumnInfo.builder().columnName(CN_CHANNEL_NAME).javaType(String.class).jdbcType(JDBCType.VARCHAR).serialNumber(4).build());
+                ColumnInfo.builder().columnName(CN_CHANNEL_NAME).javaType(String.class).jdbcType(JDBCType.VARCHAR).serialNumber(3).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoOutboundMessage.withFieldName(Message.Fields.payload.name()),
-                ColumnInfo.builder().columnName(CN_PAYLOAD).javaType(String.class).jdbcType(JDBCType.BLOB).serialNumber(5).build());
+                ColumnInfo.builder().columnName(CN_PAYLOAD).javaType(String.class).jdbcType(JDBCType.BLOB).serialNumber(4).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoOutboundMessage.withFieldName(Message.Fields.headers.name()),
-                ColumnInfo.builder().columnName(CN_HEADERS).javaType(String.class).jdbcType(JDBCType.BLOB).serialNumber(6).build());
+                ColumnInfo.builder().columnName(CN_HEADERS).javaType(String.class).jdbcType(JDBCType.BLOB).serialNumber(5).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoOutboundMessage.withFieldName(Message.Fields.metadata.name()),
-                ColumnInfo.builder().columnName(CN_METADATA).javaType(String.class).jdbcType(JDBCType.BLOB).serialNumber(7).build());
+                ColumnInfo.builder().columnName(CN_METADATA).javaType(String.class).jdbcType(JDBCType.BLOB).serialNumber(6).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoOutboundMessage.withFieldName(Message.Fields.state.name()),
-                ColumnInfo.builder().columnName(CN_STATE).javaType(String.class).jdbcType(JDBCType.VARCHAR).serialNumber(8).build());
+                ColumnInfo.builder().columnName(CN_STATE).javaType(String.class).jdbcType(JDBCType.VARCHAR).serialNumber(7).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoOutboundMessage.withFieldName(OutboundMessage.Fields.relayedAt.name()),
-                ColumnInfo.builder().columnName(CN_RELAYED_AT).javaType(Date.class).jdbcType(JDBCType.TIMESTAMP_WITH_TIMEZONE).serialNumber(9).build());
+                ColumnInfo.builder().columnName(CN_RELAYED_AT).javaType(Date.class).jdbcType(JDBCType.TIMESTAMP_WITH_TIMEZONE).serialNumber(8).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoOutboundMessage.withFieldName(OutboundMessage.Fields.relayCount.name()),
-                ColumnInfo.builder().columnName(CN_RELAY_COUNT).javaType(Integer.class).jdbcType(JDBCType.INTEGER).serialNumber(10).build());
+                ColumnInfo.builder().columnName(CN_RELAY_COUNT).javaType(Integer.class).jdbcType(JDBCType.INTEGER).serialNumber(9).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoOutboundMessage.withFieldName(Message.Fields.createdAt.name()),
-                ColumnInfo.builder().columnName(CN_CREATED_AT).javaType(Date.class).jdbcType(JDBCType.TIMESTAMP_WITH_TIMEZONE).serialNumber(11).build());
+                ColumnInfo.builder().columnName(CN_CREATED_AT).javaType(Date.class).jdbcType(JDBCType.TIMESTAMP_WITH_TIMEZONE).serialNumber(10).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoOutboundMessage.withFieldName(Message.Fields.updatedAt.name()),
-                ColumnInfo.builder().columnName(CN_UPDATED_AT).javaType(Date.class).jdbcType(JDBCType.TIMESTAMP_WITH_TIMEZONE).serialNumber(12).build());
+                ColumnInfo.builder().columnName(CN_UPDATED_AT).javaType(Date.class).jdbcType(JDBCType.TIMESTAMP_WITH_TIMEZONE).serialNumber(11).build());
 
         JavaFieldInfo fieldInfoSidelinedMessage = JavaFieldInfo.builder()
                 .enclosingType(SidelinedMessage.class)
