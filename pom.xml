@@ -36,7 +36,7 @@
         <commons-collections4.version>4.5.0-M2</commons-collections4.version>
 
         <!--  Test dependency versions      -->
-        <allure.version>2.29.0</allure.version>
+        <allure.version>2.29.1</allure.version>
         <junit.version>5.11.3</junit.version>
         <h2.database.version>2.3.232</h2.database.version>
         <HikariCP.version>5.1.0</HikariCP.version>
