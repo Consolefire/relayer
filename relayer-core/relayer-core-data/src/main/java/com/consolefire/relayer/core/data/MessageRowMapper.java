@@ -8,6 +8,6 @@ import java.sql.SQLException;
 
 public interface MessageRowMapper<ID extends Serializable, M extends Message<ID>> {
 
-    M mapRow(ResultSet resultSet, int rowNumber) throws SQLException;
+    M mapRow(ResultSet resultSet) throws SQLException;
 
 }

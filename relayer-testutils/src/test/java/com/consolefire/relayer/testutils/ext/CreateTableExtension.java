@@ -1,4 +1,4 @@
-package com.consolefire.relayer.testutils.data;
+package com.consolefire.relayer.testutils.ext;
 
 import com.consolefire.relayer.testutils.ext.handler.CreateTableExtensionHandler;
 import org.junit.jupiter.api.Order;
