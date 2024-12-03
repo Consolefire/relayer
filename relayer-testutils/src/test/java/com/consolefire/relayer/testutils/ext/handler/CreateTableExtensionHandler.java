@@ -1,13 +1,15 @@
 package com.consolefire.relayer.testutils.ext.handler;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Optional;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class CreateTableExtensionHandler implements BeforeAllCallback {
+
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
@@ -15,8 +17,8 @@ public class CreateTableExtensionHandler implements BeforeAllCallback {
         assertNotNull(testClass);
         Optional<Object> testInstance = extensionContext.getTestInstance();
         assertAll(
-                () -> assertNotNull(testInstance),
-                () -> assertTrue(testInstance.isPresent())
+            () -> assertNotNull(testInstance),
+            () -> assertTrue(testInstance.isPresent())
         );
     }
 }

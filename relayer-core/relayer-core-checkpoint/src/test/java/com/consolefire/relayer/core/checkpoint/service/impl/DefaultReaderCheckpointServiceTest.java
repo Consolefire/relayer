@@ -59,9 +59,11 @@ class DefaultReaderCheckpointServiceTest {
 
     @Test
     void shouldCompleteWhenExists() {
-        ReaderCheckpoint expectedCheckpoint = new ReaderCheckpoint(SOURCE_ID);
-        assertFalse(expectedCheckpoint.isCompleted());
-        when(readerCheckpointRepository.findByIdentifier(SOURCE_ID)).thenReturn(expectedCheckpoint);
+        ReaderCheckpoint existingCheckpoint = new ReaderCheckpoint(SOURCE_ID);
+        assertFalse(existingCheckpoint.isCompleted());
+        when(readerCheckpointRepository.findByIdentifier(SOURCE_ID)).thenReturn(existingCheckpoint);
+        ReaderCheckpoint expectedCompletedCheckpoint = existingCheckpoint.withCompleted(true);
+        when(readerCheckpointRepository.update(any(ReaderCheckpoint.class))).thenReturn(expectedCompletedCheckpoint);
         ReaderCheckpoint actualCheckpoint = readerCheckpointService.complete(SOURCE_ID);
         assertAll(
             () -> assertNotNull(actualCheckpoint),

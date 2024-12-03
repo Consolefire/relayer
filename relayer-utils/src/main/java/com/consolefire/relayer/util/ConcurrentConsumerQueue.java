@@ -13,6 +13,7 @@ public class ConcurrentConsumerQueue<E> {
     @Getter
     private final Object fullLock = new Object();
     private final Object emptyLock = new Object();
+    private final Object pauseResumeLock = new Object();
 
 
     public final void waitOnEmpty() {
@@ -44,6 +45,23 @@ public class ConcurrentConsumerQueue<E> {
     public final void notifyNotFull() {
         synchronized (fullLock) {
             fullLock.notify();
+        }
+    }
+
+    public final void pause() {
+        synchronized (pauseResumeLock) {
+            try {
+                pauseResumeLock.wait();
+
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    public final void resume() {
+        synchronized (pauseResumeLock) {
+            pauseResumeLock.notify();
         }
     }
 
@@ -90,5 +108,9 @@ public class ConcurrentConsumerQueue<E> {
 
     public final Iterator<E> iterator() {
         return targetQueue.iterator();
+    }
+
+    public void clear() {
+        targetQueue.clear();
     }
 }
