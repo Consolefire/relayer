@@ -1,4 +1,4 @@
-package com.consolefire.relayer.core.checkpoint.repository.impl;
+package ct.com.consolefire.relayer.core.checkpoint.repository.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.consolefire.relayer.core.checkpoint.ReaderCheckpoint;
 import com.consolefire.relayer.core.checkpoint.repository.ReaderCheckpointRepository;
+import com.consolefire.relayer.core.checkpoint.repository.impl.AbstractReaderCheckpointRepository;
+import com.consolefire.relayer.core.checkpoint.repository.impl.DefaultReaderCheckpointQueryProvider;
 import com.consolefire.relayer.core.common.data.DuplicateRecordExistsException;
+import com.consolefire.relayer.testutils.data.H2InMemoryDataSourceBuilder;
 import com.consolefire.relayer.testutils.data.TestDataSource;
-import com.consolefire.relayer.testutils.ext.CreateTableExtension;
 import com.consolefire.relayer.testutils.ext.DataSourceAwareExtension;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import com.radcortez.flyway.test.annotation.FlywayTest;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
@@ -26,7 +26,8 @@ import org.junit.jupiter.api.Test;
 
 @Slf4j
 @DataSourceAwareExtension
-@CreateTableExtension
+@FlywayTest(value = @com.radcortez.flyway.test.annotation.DataSource(H2InMemoryDataSourceBuilder.class),
+    additionalLocations = {"db/test-migrations"})
 class DefaultReaderCheckpointRepositoryTest {
 
     private static final Instant NOW = Instant.now();
@@ -47,22 +48,6 @@ class DefaultReaderCheckpointRepositoryTest {
     @BeforeAll
     void init() {
         assertNotNull(dataSource, "datasource not exists");
-        String sql = """
-            create table READER_CHECKPOINTS (
-                IDENTIFIER varchar(256) not null, 
-                IS_COMPLETED bool not null, 
-                CREATED_AT timestamp not null, 
-                EXPIRES_AT timestamp,
-                primary key (IDENTIFIER)
-            )""";
-        try (Connection connection = dataSource.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql)
-        ) {
-            boolean result = statement.execute();
-            log.info("table created: ", result);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
         readerCheckpointRepository = new AbstractReaderCheckpointRepository(
             new DefaultReaderCheckpointQueryProvider()) {
             @Override

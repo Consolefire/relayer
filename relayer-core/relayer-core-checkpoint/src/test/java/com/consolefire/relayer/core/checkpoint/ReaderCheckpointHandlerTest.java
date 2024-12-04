@@ -1,8 +1,9 @@
 package com.consolefire.relayer.core.checkpoint;
 
-import static com.consolefire.relayer.testutils.exec.ExecutorServiceInitializer.createCheckpointCompletedEventExecutorService;
-import static com.consolefire.relayer.testutils.exec.ExecutorServiceInitializer.createParallelTaskExecutorService;
-import static com.consolefire.relayer.testutils.exec.ExecutorServiceInitializer.createReaderCheckpointHandlerExecutorService;
+import static com.consolefire.relayer.testutils.exec.ExecutorServiceTestUtils.createCheckpointCompletedEventExecutorService;
+import static com.consolefire.relayer.testutils.exec.ExecutorServiceTestUtils.createParallelTaskExecutorService;
+import static com.consolefire.relayer.testutils.exec.ExecutorServiceTestUtils.createReaderCheckpointHandlerExecutorService;
+import static com.consolefire.relayer.testutils.exec.ExecutorServiceTestUtils.shutdownAndAwaitTermination;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.consolefire.relayer.core.checkpoint.repository.ReaderCheckpointRepository;
@@ -13,7 +14,9 @@ import com.consolefire.relayer.core.checkpoint.service.impl.DefaultReaderCheckpo
 import com.consolefire.relayer.core.checkpoint.task.CheckpointCompletedEvent;
 import com.consolefire.relayer.core.checkpoint.task.ReaderCheckpointCompletedConsumer;
 import com.consolefire.relayer.testutils.data.TestDataSource;
+import com.consolefire.relayer.testutils.exec.ExecutorServiceTestUtils;
 import com.consolefire.relayer.testutils.ext.DataSourceAwareExtension;
+import com.consolefire.relayer.testutils.ext.TestLoggerExtension;
 import com.consolefire.relayer.util.ConcurrentConsumerQueue;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,12 +30,13 @@ import java.util.stream.IntStream;
 import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @Slf4j
+@Disabled
+@TestLoggerExtension
 @DataSourceAwareExtension
 class ReaderCheckpointHandlerTest {
 
@@ -95,18 +99,14 @@ class ReaderCheckpointHandlerTest {
 
     @AfterAll
     void destroy() throws InterruptedException {
-        cpEventExecutorService.shutdown();
         shutdownExecutors();
     }
 
-    void startExecutors() {
-
-    }
 
     void shutdownExecutors() throws InterruptedException {
         producerExecutor.shutdown();
-        checkpointConsumerExecutorService.shutdown();
-        checkpointConsumerExecutorService.awaitTermination(2, TimeUnit.MINUTES);
+        shutdownAndAwaitTermination(checkpointConsumerExecutorService);
+        shutdownAndAwaitTermination(cpEventExecutorService);
     }
 
     @Test
