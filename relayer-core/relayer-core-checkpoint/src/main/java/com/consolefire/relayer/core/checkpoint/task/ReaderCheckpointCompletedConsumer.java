@@ -2,7 +2,6 @@ package com.consolefire.relayer.core.checkpoint.task;
 
 import com.consolefire.relayer.core.checkpoint.ReaderCheckpointHandler;
 import com.consolefire.relayer.util.ConcurrentConsumerQueue;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -21,13 +20,14 @@ public class ReaderCheckpointCompletedConsumer implements Runnable {
 
     @Override
     public void run() {
+        log.debug("***-- Consuming CheckpointCompletedEvent");
         while (true) {
             try {
                 if (checkpointCompletedEventQueue.isEmpty()) {
                     log.debug("***-- waiting for CheckpointCompletedEvent");
                     checkpointCompletedEventQueue.waitOnEmpty();
                 }
-
+                log.debug("***-- polling for the next CheckpointCompletedEvent");
                 CheckpointCompletedEvent event = checkpointCompletedEventQueue.poll();
                 if (event != null) {
                     log.debug("CheckpointCompletedEvent: {}", event);
@@ -47,6 +47,7 @@ public class ReaderCheckpointCompletedConsumer implements Runnable {
     }
 
     private void process(CheckpointCompletedEvent event) {
+        log.info("Processing CheckpointCompletedEvent: {}", event);
         readerCheckpointHandler.onSourceCheckpointCompleted(event.sourceIdentifier());
     }
 }

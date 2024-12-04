@@ -22,6 +22,12 @@
             <artifactId>relayer-core-data</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb.flyway-test-extensions</groupId>
+            <artifactId>flyway-test</artifactId>
+            <version>10.0.0</version>
+        </dependency>
     </dependencies>
 
 </project>

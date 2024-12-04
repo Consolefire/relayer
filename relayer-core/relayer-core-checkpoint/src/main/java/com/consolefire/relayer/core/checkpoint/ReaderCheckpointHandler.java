@@ -74,7 +74,7 @@ public class ReaderCheckpointHandler implements AutoCloseable {
     }
 
     public void onSourceCheckpointCompleted(String sourceIdentifier) {
-        log.debug("onSourceCheckpointCompleted: {}", sourceIdentifier);
+        log.info("onSourceCheckpointCompleted: {}", sourceIdentifier);
         readerCheckpointService.complete(sourceIdentifier);
         checkpointIndexConsumers.get(sourceIdentifier).stop();
     }

@@ -1,3 +1,12 @@
+create table READER_CHECKPOINTS (
+                IDENTIFIER varchar(256) not null,
+                IS_COMPLETED bool not null,
+                CREATED_AT timestamp not null,
+                EXPIRES_AT timestamp,
+                primary key (IDENTIFIER)
+            );
+
+
 create schema if not exists message_store;
 
 create table if not exists message_store.outbound_message
