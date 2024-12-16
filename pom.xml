@@ -37,7 +37,7 @@
 
         <!--  Test dependency versions      -->
         <allure.version>2.29.1</allure.version>
-        <junit.version>5.11.3</junit.version>
+        <junit.version>5.11.4</junit.version>
         <h2.database.version>2.3.232</h2.database.version>
         <HikariCP.version>5.1.0</HikariCP.version>
         <jacoco.version>0.8.12</jacoco.version>
