@@ -33,7 +33,7 @@
 
         <commons-codec.version>1.17.1</commons-codec.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
-        <commons-collections4.version>4.5.0-M2</commons-collections4.version>
+        <commons-collections4.version>4.5.0-M3</commons-collections4.version>
 
         <!--  Test dependency versions      -->
         <allure.version>2.29.1</allure.version>
