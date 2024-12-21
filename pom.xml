@@ -47,7 +47,7 @@
         <radcortez.flyway-juni5.version>2.1.0</radcortez.flyway-juni5.version>
 
         <!-- Logger Dependency versions  -->
-        <logback.version>1.5.12</logback.version>
+        <logback.version>1.5.15</logback.version>
 
         <!-- Plugin versions       -->
         <allure-plugin.version>2.15.2</allure-plugin.version>
