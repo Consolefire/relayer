@@ -6,19 +6,9 @@
         <artifactId>relayer</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <packaging>pom</packaging>
     <artifactId>relayer-core</artifactId>
 
-    <modules>
-        <module>relayer-core-commons</module>
-        <module>relayer-core-data</module>
-        <module>relayer-core-pipes</module>
-        <module>relayer-core-distributor</module>
-        <module>relayer-core-processor</module>
-        <module>relayer-core-publisher</module>
-        <module>relayer-core-reader</module>
-        <module>relayer-core-checkpoint</module>
-    </modules>
+
 
     <dependencies>
         <dependency>
@@ -40,6 +30,16 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+
 
 
         <dependency>
@@ -66,6 +66,11 @@
             <groupId>com.radcortez.flyway</groupId>
             <artifactId>flyway-junit5-extension</artifactId>
             <version>${radcortez.flyway-juni5.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-retry</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
