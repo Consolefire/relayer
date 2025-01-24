@@ -10,13 +10,39 @@
   </parent>
 
   <artifactId>relayer-outbox</artifactId>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>relayer-outbox-model</module>
+    <module>relayer-outbox-core</module>
+    <module>relayer-outbox-writer</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>relayer-model</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>relayer-utils</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>relayer-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
 
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>relayer-core</artifactId>
-      <version>${project.version}</version>
+      <artifactId>relayer-model</artifactId>
     </dependency>
   </dependencies>
-
 </project>

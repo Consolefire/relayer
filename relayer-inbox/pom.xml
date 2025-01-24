@@ -10,13 +10,38 @@
   </parent>
 
   <artifactId>relayer-inbox</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+    <module>relayer-inbox-model</module>
+    <module>relayer-inbox-core</module>
+    <module>relayer-inbox-writer</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>relayer-model</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>relayer-utils</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>relayer-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
 
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>relayer-core</artifactId>
-      <version>${project.version}</version>
+      <artifactId>relayer-model</artifactId>
     </dependency>
   </dependencies>
 
