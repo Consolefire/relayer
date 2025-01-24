@@ -25,7 +25,7 @@ public class RetryTest {
     private static final String NAME = "NAME-01";
 
     public static final Duration INITIAL_INTERVAL = Duration.ofMillis(500);
-    public static final Duration MAX_INTERVAL = Duration.ofSeconds(60);
+    public static final Duration MAX_INTERVAL = Duration.ofMillis(600);
 
     static {
         DEFAULT_RETRY_CONFIG = RetryConfig.custom()
