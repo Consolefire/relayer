@@ -1,14 +1,12 @@
 package com.consolefire.relayer.core.processor.outbox;
 
-import com.consolefire.relayer.core.checkpoint.task.CheckpointIndex;
-import com.consolefire.relayer.core.checkpoint.ReaderCheckpointIndexMonitor;
 import com.consolefire.relayer.core.common.ProcessableMessage;
 import com.consolefire.relayer.core.exception.RelayErrorCode;
 import com.consolefire.relayer.core.exception.RelayErrorExceptionTranslator;
 import com.consolefire.relayer.core.processor.MessageProcessor;
 import com.consolefire.relayer.core.service.outbox.OutboxMessageService;
+import com.consolefire.relayer.core.utils.MessageHandlerProvider;
 import com.consolefire.relayer.core.utils.MessageHandlerResult;
-import com.consolefire.relayer.core.utils.outbox.OutboxMessageHandler;
 import com.consolefire.relayer.model.outbox.OutboundMessage;
 import java.io.Serializable;
 import java.util.UUID;
@@ -23,19 +21,16 @@ public class BaseOutboxMessageProcessor<ID extends Serializable> //
     @Getter
     private final UUID identifier;
     private final OutboxMessageService<ID> outboxMessageService;
-    private final OutboxMessageHandler<ID> outboxMessageHandler;
-    private final ReaderCheckpointIndexMonitor readerCheckpointIndexMonitor;
+    private final MessageHandlerProvider<ID, OutboundMessage<ID>> outboxMessageHandler;
     private final RelayErrorExceptionTranslator relayErrorExceptionTranslator;
 
     public BaseOutboxMessageProcessor(
         @NonNull UUID identifier,
         @NonNull OutboxMessageService<ID> outboxMessageService,
-        @NonNull ReaderCheckpointIndexMonitor readerCheckpointIndexMonitor,
-        @NonNull OutboxMessageHandler<ID> outboxMessageHandler,
+        @NonNull MessageHandlerProvider<ID, OutboundMessage<ID>> outboxMessageHandler,
         @NonNull RelayErrorExceptionTranslator relayErrorExceptionTranslator) {
         this.identifier = identifier;
         this.outboxMessageService = outboxMessageService;
-        this.readerCheckpointIndexMonitor = readerCheckpointIndexMonitor;
         this.outboxMessageHandler = outboxMessageHandler;
         this.relayErrorExceptionTranslator = relayErrorExceptionTranslator;
     }
@@ -59,7 +54,8 @@ public class BaseOutboxMessageProcessor<ID extends Serializable> //
                 }
             }
             log.debug("Handle message ID: {} with retry", message.getMessageId());
-            MessageHandlerResult result = outboxMessageHandler.onMessage(message);
+            MessageHandlerResult result = outboxMessageHandler.getMessageHandler(message)
+                .onMessage(message);
             if (result.isSuccess()) {
                 log.debug("Message with id: {} handled successfully.", message.getMessageId());
                 outboxMessageService.markCompleted(processableMessage.getSourceIdentifier(), message);
@@ -68,8 +64,6 @@ public class BaseOutboxMessageProcessor<ID extends Serializable> //
                 outboxMessageService.markFailed(sourceIdentifier, message, relayErrorCode, result);
             }
         } finally {
-            readerCheckpointIndexMonitor.process(processableMessage.getSourceIdentifier(),
-                new CheckpointIndex(processableMessage.getIndex(), processableMessage.getTotal()));
         }
     }
 

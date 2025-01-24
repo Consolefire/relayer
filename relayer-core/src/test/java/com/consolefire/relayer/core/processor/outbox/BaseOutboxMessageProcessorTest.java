@@ -1,10 +1,10 @@
 package com.consolefire.relayer.core.processor.outbox;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.consolefire.relayer.core.checkpoint.ReaderCheckpointIndexMonitor;
 import com.consolefire.relayer.core.checkpoint.service.ReaderCheckpointService;
 import com.consolefire.relayer.core.common.MessageSourceResolver;
 import com.consolefire.relayer.core.common.ProcessableMessage;
@@ -19,6 +19,7 @@ import com.consolefire.relayer.core.exception.RelayErrorException;
 import com.consolefire.relayer.core.exception.RelayErrorExceptionTranslator;
 import com.consolefire.relayer.core.processor.MessageProcessor;
 import com.consolefire.relayer.core.service.outbox.OutboxMessageService;
+import com.consolefire.relayer.core.utils.MessageHandlerProvider;
 import com.consolefire.relayer.core.utils.MessageHandlerResult;
 import com.consolefire.relayer.core.utils.MessageHandlerResult.AlwaysSuccessResult;
 import com.consolefire.relayer.core.utils.outbox.OutboxMessageHandler;
@@ -77,11 +78,11 @@ public class BaseOutboxMessageProcessorTest {
     protected ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     protected OutboxMessageHandler<UUID> outboxMessageHandler = mock();
+    protected MessageHandlerProvider<UUID, OutboundMessage<UUID>> messageHandlerProvider = mock();
     protected RelayErrorExceptionTranslator relayErrorExceptionTranslator = mock();
     protected OutboxMessageService<UUID> outboxMessageService = mock();
 
     private final RetryRegistry retryRegistry = DEFAULT_RETRY_REGISTRY;
-    protected ReaderCheckpointIndexMonitor readerCheckpointIndexMonitor;
     private MessageProcessor<UUID, OutboundMessage<UUID>> baseOutboxMessageProcessor;
 
     @BeforeAll
@@ -99,15 +100,12 @@ public class BaseOutboxMessageProcessorTest {
                 }
             }
         };
-        readerCheckpointIndexMonitor = new ReaderCheckpointIndexMonitor(readerCheckpointService, executorService);
-        baseOutboxMessageProcessor = new BaseOutboxMessageProcessor<>(UUID.randomUUID(),
-            outboxMessageService, readerCheckpointIndexMonitor, outboxMessageHandler,
-            relayErrorExceptionTranslator);
+        baseOutboxMessageProcessor = new BaseOutboxMessageProcessor<>(UUID.randomUUID(), outboxMessageService, messageHandlerProvider, relayErrorExceptionTranslator);
     }
 
     @BeforeEach
     void configureDefaultMocks() {
-
+        when(messageHandlerProvider.getMessageHandler(any())).thenReturn(outboxMessageHandler);
     }
 
     @Test
@@ -131,7 +129,7 @@ public class BaseOutboxMessageProcessorTest {
         doNothing().when(outboxMessageService).markFailed(SRC_ID_01, message, null, expectedHandlerResult);
 
         try {
-            baseOutboxMessageProcessor.process(new ProcessableMessage<>(message, 1, 1, SRC_ID_01));
+            baseOutboxMessageProcessor.process(new ProcessableMessage<>(message, 1, 1, SRC_ID_01, UUID.randomUUID()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -179,7 +177,7 @@ public class BaseOutboxMessageProcessorTest {
         doNothing().when(outboxMessageService).markCompleted(SRC_ID_01, message);
 
         try {
-            baseOutboxMessageProcessor.process(new ProcessableMessage<>(message, 1, 1, SRC_ID_01));
+            baseOutboxMessageProcessor.process(new ProcessableMessage<>(message, 1, 1, SRC_ID_01, UUID.randomUUID()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -206,7 +204,7 @@ public class BaseOutboxMessageProcessorTest {
         doNothing().when(outboxMessageService).markFailed(SRC_ID_01, message, null, expectedHandlerResult);
 
         try {
-            baseOutboxMessageProcessor.process(new ProcessableMessage<>(message, 1, 1, SRC_ID_01));
+            baseOutboxMessageProcessor.process(new ProcessableMessage<>(message, 1, 1, SRC_ID_01, UUID.randomUUID()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
