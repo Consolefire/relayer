@@ -9,4 +9,7 @@ public class ConsistentHashMap<K extends Serializable> {
     private final TreeMap<Long, K> hashRing = new TreeMap<>();
 
 
+    public ConsistentHashMap(int numberOfReplicas) {
+        this.numberOfReplicas = numberOfReplicas;
+    }
 }

@@ -6,6 +6,6 @@ import java.io.Serializable;
 
 public interface MessageProcessor<ID extends Serializable, M extends Message<ID>> {
 
-    void process(ProcessableMessage<ID, M> messageWrapper) throws Exception;
+    void process(ProcessableMessage<ID, M> processableMessage) throws Exception;
 
 }

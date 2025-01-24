@@ -11,44 +11,47 @@
   <modules>
     <module>relayer-model</module>
     <module>relayer-core</module>
+    <module>relayer-outbox</module>
     <module>relayer-utils</module>
     <module>relayer-engine</module>
     <module>relayer-writer</module>
     <module>relayer-testutils</module>
     <module>jacoco-coverage-report</module>
+    <module>relayer-inbox</module>
   </modules>
 
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <source.java.version>17</source.java.version>
-        <target.java.version>17</target.java.version>
-        <!-- External Dependency Versions -->
-        <slf4j.version>2.0.16</slf4j.version>
-        <lombok.version>1.18.36</lombok.version>
-        <jackson-bom.version>2.18.2</jackson-bom.version>
-        <mapstruct.version>1.6.3</mapstruct.version>
-        <org.aspectj.version>1.9.22.1</org.aspectj.version>
-        <io.micrometer.version>1.13.2</io.micrometer.version>
-        <guava.version>33.4.0-jre</guava.version>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <source.java.version>17</source.java.version>
+    <target.java.version>17</target.java.version>
+    <!-- External Dependency Versions -->
+    <slf4j.version>2.0.16</slf4j.version>
+    <lombok.version>1.18.36</lombok.version>
+    <jackson-bom.version>2.18.2</jackson-bom.version>
+    <mapstruct.version>1.6.3</mapstruct.version>
+    <org.aspectj.version>1.9.22.1</org.aspectj.version>
+    <io.micrometer.version>1.13.2</io.micrometer.version>
+    <guava.version>33.4.0-jre</guava.version>
 
-        <commons-codec.version>1.17.1</commons-codec.version>
-        <commons-lang3.version>3.17.0</commons-lang3.version>
-        <commons-collections4.version>4.5.0-M3</commons-collections4.version>
+    <commons-codec.version>1.17.1</commons-codec.version>
+    <commons-lang3.version>3.17.0</commons-lang3.version>
+    <commons-collections4.version>4.5.0-M3</commons-collections4.version>
 
-        <!--  Test dependency versions      -->
-        <allure.version>2.29.1</allure.version>
-        <junit.version>5.11.4</junit.version>
-        <h2.database.version>2.3.232</h2.database.version>
-        <HikariCP.version>5.1.0</HikariCP.version>
-        <jacoco.version>0.8.12</jacoco.version>
-        <mockito.version>5.14.2</mockito.version>
-        <hamcrest.version>3.0</hamcrest.version>
-        <flyway.version>11.1.0</flyway.version>
-        <radcortez.flyway-juni5.version>2.1.0</radcortez.flyway-juni5.version>
+    <!--  Test dependency versions      -->
+    <allure.version>2.29.1</allure.version>
+    <junit.version>5.11.4</junit.version>
+    <h2.database.version>2.3.232</h2.database.version>
+    <HikariCP.version>5.1.0</HikariCP.version>
+    <jacoco.version>0.8.12</jacoco.version>
+    <mockito.version>5.14.2</mockito.version>
+    <hamcrest.version>3.0</hamcrest.version>
+    <flyway.version>11.1.0</flyway.version>
+    <radcortez.flyway-juni5.version>2.1.0</radcortez.flyway-juni5.version>
+    <resilience4j.version>2.2.0</resilience4j.version>
 
-        <!-- Logger Dependency versions  -->
-        <logback.version>1.5.15</logback.version>
+    <!-- Logger Dependency versions  -->
+    <logback.version>1.5.15</logback.version>
 
     <!-- Plugin versions       -->
     <jacoco-maven-plugin.version>${jacoco.version}</jacoco-maven-plugin.version>

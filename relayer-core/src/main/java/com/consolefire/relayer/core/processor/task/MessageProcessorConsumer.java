@@ -1,6 +1,5 @@
 package com.consolefire.relayer.core.processor.task;
 
-import com.consolefire.relayer.core.checkpoint.ReaderCheckpointIndexMonitor;
 import com.consolefire.relayer.core.common.ProcessableMessage;
 import com.consolefire.relayer.core.processor.MessageProcessor;
 import com.consolefire.relayer.core.processor.MessageProcessorQueue;
@@ -20,7 +19,6 @@ public class MessageProcessorConsumer<ID extends Serializable, M extends Message
     private final String sourceIdentifier;
     private final MessageProcessor<ID, M> messageProcessor;
     private final MessageProcessorQueue<ID, M> messageProcessorQueue;
-    private final ReaderCheckpointIndexMonitor readerCheckpointIndexMonitor;
 
 
     @Override
@@ -55,7 +53,6 @@ public class MessageProcessorConsumer<ID extends Serializable, M extends Message
             } catch (Exception exception) {
                 log.error("Un-handled Error in message processing: {}", exception.getMessage(), exception);
                 messageProcessorQueue.clear();
-                readerCheckpointIndexMonitor.onSourceCheckpointCompleted(sourceIdentifier);
             }
         }
     }
