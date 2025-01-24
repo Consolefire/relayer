@@ -48,7 +48,7 @@
     <hamcrest.version>3.0</hamcrest.version>
     <flyway.version>11.1.0</flyway.version>
     <radcortez.flyway-juni5.version>2.1.0</radcortez.flyway-juni5.version>
-    <resilience4j.version>2.2.0</resilience4j.version>
+    <resilience4j.version>2.3.0</resilience4j.version>
 
     <!-- Logger Dependency versions  -->
     <logback.version>1.5.15</logback.version>
