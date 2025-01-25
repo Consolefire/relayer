@@ -3,6 +3,7 @@ package com.consolefire.relayer.core.utils;
 import static io.github.resilience4j.core.IntervalFunction.ofExponentialBackoff;
 
 import com.consolefire.relayer.core.exception.RecoverableErrorException;
+import com.consolefire.relayer.core.handler.MessageHandlerResult;
 import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.Retry.Metrics;
 import io.github.resilience4j.retry.RetryConfig;
