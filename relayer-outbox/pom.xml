@@ -16,6 +16,7 @@
     <module>relayer-outbox-model</module>
     <module>relayer-outbox-core</module>
     <module>relayer-outbox-writer</module>
+    <module>relayer-outbox-app</module>
   </modules>
 
   <dependencyManagement>

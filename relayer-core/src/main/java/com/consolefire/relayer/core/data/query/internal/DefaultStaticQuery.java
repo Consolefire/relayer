@@ -16,4 +16,8 @@ public class DefaultStaticQuery extends AbstractQuery {
         return statement;
     }
 
+    @Override
+    protected String resolveStatement() {
+        return statement;
+    }
 }
