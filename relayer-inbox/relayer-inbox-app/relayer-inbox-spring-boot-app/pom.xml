@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.consolefire.relayer</groupId>
-    <artifactId>relayer-outbox-app</artifactId>
+    <artifactId>relayer-inbox-app</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>relayer-outbox-spring-boot-app</artifactId>
+  <artifactId>relayer-inbox-spring-boot-app</artifactId>
 
   <dependencyManagement>
     <dependencies>
@@ -39,12 +39,12 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>relayer-outbox-model</artifactId>
+      <artifactId>relayer-inbox-model</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>relayer-outbox-core</artifactId>
+      <artifactId>relayer-inbox-core</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -161,6 +161,5 @@
       </plugin>
     </plugins>
   </build>
-
 
 </project>

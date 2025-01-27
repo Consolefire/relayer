@@ -15,6 +15,7 @@
     <module>relayer-inbox-model</module>
     <module>relayer-inbox-core</module>
     <module>relayer-inbox-writer</module>
+    <module>relayer-inbox-app</module>
   </modules>
 
   <dependencyManagement>

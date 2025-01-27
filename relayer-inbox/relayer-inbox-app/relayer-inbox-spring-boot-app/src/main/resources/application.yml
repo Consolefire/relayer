@@ -1,0 +1,19 @@
+logging:
+  level:
+    root: error
+
+relayer:
+  inbox:
+    profile: demo
+    config:
+      location: ${RELAYER_INBOX_CONFIG_PATH:${user.home}/.relayer/inbox}/relayer-inbox-${relayer.inbox.profile}.yml
+      fail-on-not-found: true
+      fail-on-not-accessible: true
+
+server:
+  port: ${RELAYER_INBOX_APP_PORT:9229}
+
+spring:
+  application:
+    name: ${RELAYER_INBOX_APP_NAME:relayer-inbox}
+

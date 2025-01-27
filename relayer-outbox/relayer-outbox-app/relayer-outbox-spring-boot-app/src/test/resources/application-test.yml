@@ -1,0 +1,20 @@
+logging:
+  level:
+    com.consolefire.relayer: DEBUG
+    org.springframework: ERROR
+
+relayer:
+  outbox:
+    profile: test
+    config:
+      location: classpath:relayer/relayer-outbox-${relayer.outbox.profile}.yml
+      fail-on-not-found: true
+      fail-on-not-accessible: true
+
+server:
+  port: ${RELAYER_OUTBOX_APP_PORT:9119}
+
+spring:
+  application:
+    name: ${RELAYER_OUTBOX_APP_NAME:relayer-outbox}
+
