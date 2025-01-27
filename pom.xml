@@ -8,17 +8,7 @@
   <packaging>pom</packaging>
   <name>Relayer</name>
 
-  <modules>
-    <module>relayer-model</module>
-    <module>relayer-core</module>
-    <module>relayer-outbox</module>
-    <module>relayer-utils</module>
-    <module>relayer-engine</module>
-    <module>relayer-writer</module>
-    <module>relayer-testutils</module>
-    <module>jacoco-coverage-report</module>
-    <module>relayer-inbox</module>
-  </modules>
+
 
 
   <properties>
@@ -531,6 +521,57 @@
       </plugin>
     </plugins>
   </build>
+
+
+  <profiles>
+    <profile>
+      <id>default-build</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <modules>
+        <module>relayer-model</module>
+        <module>relayer-core</module>
+        <module>relayer-outbox</module>
+        <module>relayer-utils</module>
+        <module>relayer-engine</module>
+        <module>relayer-writer</module>
+        <module>relayer-testutils</module>
+        <module>jacoco-coverage-report</module>
+        <module>relayer-inbox</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>inbox</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <modules>
+        <module>relayer-model</module>
+        <module>relayer-core</module>
+        <module>relayer-utils</module>
+        <module>relayer-writer</module>
+        <module>relayer-testutils</module>
+        <module>relayer-inbox</module>
+        <module>jacoco-coverage-report</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>outbox</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <modules>
+        <module>relayer-model</module>
+        <module>relayer-core</module>
+        <module>relayer-utils</module>
+        <module>relayer-writer</module>
+        <module>relayer-testutils</module>
+        <module>relayer-outbox</module>
+        <module>jacoco-coverage-report</module>
+      </modules>
+    </profile>
+  </profiles>
 
   <reporting>
     <plugins>

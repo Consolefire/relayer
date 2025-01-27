@@ -56,6 +56,12 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
+      <artifactId>relayer-outbox-spring-boot-app</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
       <artifactId>relayer-inbox-model</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
@@ -69,6 +75,12 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>relayer-inbox-writer</artifactId>
+      <version>${project.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>relayer-inbox-spring-boot-app</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
