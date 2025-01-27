@@ -1,7 +1,7 @@
 package com.consolefire.relayer.outbox.core.data.repository;
 
 import com.consolefire.relayer.core.data.MessageRowMapper;
-import com.consolefire.relayer.core.data.PreparedStatementSetter;
+import com.consolefire.relayer.util.data.PreparedStatementSetter;
 import com.consolefire.relayer.core.data.query.Parameter;
 import com.consolefire.relayer.core.data.query.SelectQuery;
 import com.consolefire.relayer.core.data.query.exec.MessageSelectQueryExecutor;

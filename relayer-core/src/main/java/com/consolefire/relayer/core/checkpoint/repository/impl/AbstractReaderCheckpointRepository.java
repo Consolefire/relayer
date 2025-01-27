@@ -3,7 +3,7 @@ package com.consolefire.relayer.core.checkpoint.repository.impl;
 import com.consolefire.relayer.core.checkpoint.ReaderCheckpoint;
 import com.consolefire.relayer.core.checkpoint.repository.CheckpointQueryProvider;
 import com.consolefire.relayer.core.checkpoint.repository.ReaderCheckpointRepository;
-import com.consolefire.relayer.core.data.PreparedStatementSetter;
+import com.consolefire.relayer.util.data.PreparedStatementSetter;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.Optional;

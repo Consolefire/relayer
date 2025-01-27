@@ -1,4 +1,4 @@
-package com.consolefire.relayer.core.data;
+package com.consolefire.relayer.util.data;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

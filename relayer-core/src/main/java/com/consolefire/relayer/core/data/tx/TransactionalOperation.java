@@ -1,15 +1,11 @@
 package com.consolefire.relayer.core.data.tx;
 
-import lombok.RequiredArgsConstructor;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-import java.util.function.Function;
+@FunctionalInterface
+public interface TransactionalOperation<I, O> {
 
-@RequiredArgsConstructor
-public class TransactionalOperation<I, O> {
+    O apply(Connection connection, I input) throws SQLException;
 
-    private final Function<I, O> operation;
-
-    public O doInTransaction(I input) {
-        return operation.apply(input);
-    }
 }

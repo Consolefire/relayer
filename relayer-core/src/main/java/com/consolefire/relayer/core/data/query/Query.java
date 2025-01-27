@@ -6,4 +6,10 @@ public interface Query {
 
     String toStatement();
 
+    String resolvedStatement();
+
+    <V> V getParameterValue(int index);
+
+    <V> void setParameterValue(int index, V value);
+
 }

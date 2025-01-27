@@ -1,17 +1,16 @@
 package com.consolefire.relayer.core.data.query.internal;
 
+import static java.lang.String.format;
+
 import com.consolefire.relayer.core.data.query.InsertQuery;
 import com.consolefire.relayer.core.data.query.QueryType;
-import lombok.Getter;
-import lombok.NonNull;
-
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
-import static java.lang.String.format;
+import lombok.Getter;
+import lombok.NonNull;
 
 @Getter
 public class DefaultInsertQuery extends AbstractQuery implements InsertQuery {
@@ -26,13 +25,13 @@ public class DefaultInsertQuery extends AbstractQuery implements InsertQuery {
     private final Map<String, Integer> columnIndexes;
 
     public DefaultInsertQuery(
-            String schemaName, @NonNull String tableName, @NonNull Map<String, Integer> columnIndexes) {
+        String schemaName, @NonNull String tableName, @NonNull Map<String, Integer> columnIndexes) {
         super(QueryType.INSERT);
         this.schemaName = schemaName;
         this.tableName = tableName;
         this.columnIndexes = Optional.ofNullable(columnIndexes)
-                .map(Collections::unmodifiableMap)
-                .orElse(Collections.emptyMap());
+            .map(Collections::unmodifiableMap)
+            .orElse(Collections.emptyMap());
     }
 
     @Override
@@ -53,13 +52,18 @@ public class DefaultInsertQuery extends AbstractQuery implements InsertQuery {
         return format(INSERT_SQL_PATTERN_NO_SCHEMA, tableName, toColumnNames(), toQuestions());
     }
 
+    @Override
+    protected String resolveStatement() {
+        return "";
+    }
+
     private String toQuestions() {
         return columnIndexes.values().stream().sorted().map(x -> "?")
-                .collect(Collectors.joining(NAME_SEPARATOR));
+            .collect(Collectors.joining(NAME_SEPARATOR));
     }
 
     private String toColumnNames() {
         return columnIndexes.entrySet().stream().sorted(Map.Entry.comparingByValue()).map(Map.Entry::getKey)
-                .collect(Collectors.joining(NAME_SEPARATOR));
+            .collect(Collectors.joining(NAME_SEPARATOR));
     }
 }

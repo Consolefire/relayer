@@ -10,7 +10,7 @@ import com.consolefire.relayer.core.checkpoint.ReaderCheckpoint;
 import com.consolefire.relayer.core.checkpoint.repository.ReaderCheckpointRepository;
 import com.consolefire.relayer.core.checkpoint.repository.impl.AbstractReaderCheckpointRepository;
 import com.consolefire.relayer.core.checkpoint.repository.impl.DefaultReaderCheckpointQueryProvider;
-import com.consolefire.relayer.core.data.DuplicateRecordExistsException;
+import com.consolefire.relayer.util.data.DuplicateRecordExistsException;
 import com.consolefire.relayer.testutils.data.H2InMemoryDataSourceBuilder;
 import com.consolefire.relayer.testutils.data.TestDataSource;
 import com.consolefire.relayer.testutils.ext.DataSourceAwareExtension;

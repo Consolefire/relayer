@@ -1,13 +1,11 @@
 package com.consolefire.relayer.core.data;
 
 import com.consolefire.relayer.model.Message;
-
+import com.consolefire.relayer.util.data.RowMapper;
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-public interface MessageRowMapper<ID extends Serializable, M extends Message<ID>> {
+public interface MessageRowMapper<ID extends Serializable, M extends Message<ID>>
+    extends RowMapper<M> {
 
-    M mapRow(ResultSet resultSet) throws SQLException;
 
 }
