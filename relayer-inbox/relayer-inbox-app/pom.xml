@@ -5,15 +5,16 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.consolefire.relayer</groupId>
-    <artifactId>relayer-outbox</artifactId>
+    <artifactId>relayer-inbox</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>relayer-outbox-app</artifactId>
+  <artifactId>relayer-inbox-app</artifactId>
   <packaging>pom</packaging>
 
   <modules>
-    <module>relayer-outbox-spring-boot-app</module>
+
+    <module>relayer-inbox-spring-boot-app</module>
   </modules>
 
   <properties>

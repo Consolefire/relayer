@@ -1,0 +1,19 @@
+logging:
+  level:
+    root: error
+
+relayer:
+  outbox:
+    profile: demo
+    config:
+      location: ${RELAYER_OUTBOX_CONFIG_PATH:${user.home}/.relayer/outbox}/relayer-outbox-${relayer.outbox.profile}.yml
+      fail-on-not-found: true
+      fail-on-not-accessible: true
+
+server:
+  port: ${RELAYER_OUTBOX_APP_PORT:9119}
+
+spring:
+  application:
+    name: ${RELAYER_OUTBOX_APP_NAME:relayer-outbox}
+
