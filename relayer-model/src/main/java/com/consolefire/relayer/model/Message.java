@@ -20,6 +20,7 @@ public abstract class Message<ID extends Serializable>
 
 
     protected ID messageId;
+    protected Long messageSequence;
     protected String groupId;
     @ToString.Exclude
     protected String payload;
@@ -31,9 +32,11 @@ public abstract class Message<ID extends Serializable>
     protected Instant createdAt;
     protected Instant updatedAt;
 
-    public Message(ID messageId, String groupId, String payload, String headers, String metadata, MessageState state,
+    public Message(ID messageId, Long messageSequence, String groupId, String payload, String headers, String metadata,
+        MessageState state,
         Instant createdAt, Instant updatedAt) {
         this.messageId = messageId;
+        this.messageSequence = messageSequence;
         this.groupId = groupId;
         this.payload = payload;
         this.headers = headers;
@@ -45,13 +48,13 @@ public abstract class Message<ID extends Serializable>
 
     @Override
     public int compareTo(Message<ID> other) {
-        if (null == this.createdAt) {
+        if (null == this.messageSequence) {
             return -1;
         }
-        if (null == other || null == other.createdAt) {
+        if (null == other || null == other.messageSequence) {
             return 1;
         }
-        return this.createdAt.compareTo(other.createdAt);
+        return this.messageSequence.compareTo(other.messageSequence);
     }
 
 

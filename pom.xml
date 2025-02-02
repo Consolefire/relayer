@@ -28,6 +28,8 @@
     <commons-lang3.version>3.17.0</commons-lang3.version>
     <commons-collections4.version>4.5.0-M3</commons-collections4.version>
 
+    <spring-boot.version>3.4.2</spring-boot.version>
+
     <!--  Test dependency versions      -->
     <allure.version>2.29.1</allure.version>
     <junit.version>5.11.4</junit.version>
@@ -50,6 +52,7 @@
     <path.to.component.tests>src/component-tests</path.to.component.tests>
     <!-- JACOCO -->
     <argLineJacoco></argLineJacoco>
+    <fail-on-low-coverage>false</fail-on-low-coverage>
   </properties>
 
   <url>https://sabujdas.com/relayer</url>
@@ -340,7 +343,7 @@
           <artifactId>jacoco-maven-plugin</artifactId>
           <version>${jacoco-maven-plugin.version}</version>
           <configuration>
-            <haltOnFailure>false</haltOnFailure>
+            <haltOnFailure>${fail-on-low-coverage}</haltOnFailure>
           </configuration>
           <executions>
             <execution>
@@ -361,7 +364,22 @@
                       <limit>
                         <counter>LINE</counter>
                         <value>COVEREDRATIO</value>
-                        <minimum>0.50</minimum>
+                        <minimum>0.95</minimum>
+                      </limit>
+                    </limits>
+                  </rule>
+                  <rule>
+                    <element>BUNDLE</element>
+                    <limits>
+                      <limit>
+                        <counter>INSTRUCTION</counter>
+                        <value>COVEREDRATIO</value>
+                        <minimum>0.95</minimum>
+                      </limit>
+                      <limit>
+                        <counter>CLASS</counter>
+                        <value>MISSEDCOUNT</value>
+                        <maximum>0</maximum>
                       </limit>
                     </limits>
                   </rule>
@@ -542,6 +560,26 @@
       </modules>
     </profile>
     <profile>
+      <id>coverage-build</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <fail-on-low-coverage>true</fail-on-low-coverage>
+      </properties>
+      <modules>
+        <module>relayer-model</module>
+        <module>relayer-core</module>
+        <module>relayer-outbox</module>
+        <module>relayer-utils</module>
+        <module>relayer-engine</module>
+        <module>relayer-writer</module>
+        <module>relayer-testutils</module>
+        <module>jacoco-coverage-report</module>
+        <module>relayer-inbox</module>
+      </modules>
+    </profile>
+    <profile>
       <id>inbox</id>
       <activation>
         <activeByDefault>false</activeByDefault>
@@ -555,6 +593,18 @@
         <module>relayer-inbox</module>
         <module>jacoco-coverage-report</module>
       </modules>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${spring-boot.version}</version>
+            <configuration>
+              <skip>true</skip>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
     <profile>
       <id>outbox</id>
@@ -570,6 +620,18 @@
         <module>relayer-outbox</module>
         <module>jacoco-coverage-report</module>
       </modules>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${spring-boot.version}</version>
+            <configuration>
+              <skip>true</skip>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 

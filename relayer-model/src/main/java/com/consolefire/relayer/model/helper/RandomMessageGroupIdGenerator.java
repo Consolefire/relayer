@@ -2,9 +2,10 @@ package com.consolefire.relayer.model.helper;
 
 import java.util.UUID;
 
-public class RandomMessageGroupIdGenerator implements MessageGroupIdGenerator<Object, Object> {
+public class RandomMessageGroupIdGenerator<P, M> implements MessageGroupIdGenerator<P, M> {
+
     @Override
-    public String generate(Object o, Object metadata) {
+    public String generate(P o, M metadata) {
         return UUID.randomUUID().toString();
     }
 }

@@ -1,4 +1,4 @@
-package com.consolefire.relayer.model.conversion;
+package com.consolefire.relayer.util.converter;
 
 public class UnsupportedConversionException extends RuntimeException {
 

@@ -1,4 +1,6 @@
 package com.consolefire.relayer.model.conversion;
 
-public interface MessageHeaderConverter<SOURCE> extends Converter<SOURCE, String>{
+import com.consolefire.relayer.util.converter.Converter;
+
+public interface MessageHeaderConverter<SOURCE> extends Converter<SOURCE, String> {
 }

@@ -16,8 +16,5 @@
     <module>relayer-outbox-spring-boot-app</module>
   </modules>
 
-  <properties>
-    <spring-boot.version>3.4.2</spring-boot.version>
-  </properties>
 
 </project>

@@ -1,8 +1,8 @@
-package com.consolefire.relayer.model.conversion;
+package com.consolefire.relayer.util.converter;
 
 public class DefaultObjectToStringConverter<S>
-        extends GenericConverter<S, String>
-        implements MessagePayloadConverter<S>, MessageHeaderConverter<S>, MessageMetadataConverter<S> {
+    extends GenericConverter<S, String> {
+
     @Override
     protected String doInConvert(S s) {
         if (s instanceof String) {
