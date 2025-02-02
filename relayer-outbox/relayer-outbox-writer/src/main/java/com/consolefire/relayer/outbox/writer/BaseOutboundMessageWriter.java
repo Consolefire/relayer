@@ -3,7 +3,7 @@ package com.consolefire.relayer.outbox.writer;
 import com.consolefire.relayer.model.source.MessageSourceProperties;
 import com.consolefire.relayer.model.validation.InvalidMessageException;
 import com.consolefire.relayer.model.validation.MessageValidator;
-import com.consolefire.relayer.model.validation.ValidationResult;
+import com.consolefire.relayer.util.validation.ValidationResult;
 import com.consolefire.relayer.outbox.model.OutboundMessage;
 import com.consolefire.relayer.util.data.DataSourceResolver;
 import com.consolefire.relayer.writer.MessageInsertStatementSetter;

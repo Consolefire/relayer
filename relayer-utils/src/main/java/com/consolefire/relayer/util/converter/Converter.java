@@ -1,5 +1,6 @@
-package com.consolefire.relayer.model.conversion;
+package com.consolefire.relayer.util.converter;
 
+@FunctionalInterface
 public interface Converter<SOURCE, TARGET> {
 
     TARGET convert(SOURCE source);

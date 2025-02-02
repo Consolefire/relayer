@@ -1,6 +1,7 @@
 package com.consolefire.relayer.model.validation;
 
 import com.consolefire.relayer.model.Message;
+import com.consolefire.relayer.util.validation.ValidationResult;
 import lombok.Builder;
 
 import java.util.Objects;

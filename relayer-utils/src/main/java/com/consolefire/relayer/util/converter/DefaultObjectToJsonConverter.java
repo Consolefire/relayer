@@ -1,11 +1,13 @@
-package com.consolefire.relayer.model.conversion;
+package com.consolefire.relayer.util.converter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import lombok.NonNull;
 
-public class DefaultObjectToJsonConverter<S>
-        extends GenericConverter<S, String>
-        implements MessagePayloadConverter<S>, MessageHeaderConverter<S>, MessageMetadataConverter<S> {
+public class DefaultObjectToJsonConverter<SOURCE>
+    extends GenericConverter<SOURCE, String> {
 
     private final ObjectMapper objectMapper;
 
@@ -14,13 +16,14 @@ public class DefaultObjectToJsonConverter<S>
     }
 
     @Override
-    protected String doInConvert(S s) {
+    protected String doInConvert(SOURCE source) {
         String jsonString = null;
         try {
-            jsonString = objectMapper.writeValueAsString(s);
+            jsonString = objectMapper.writeValueAsString(source);
         } catch (JsonProcessingException e) {
             throw new UnsupportedConversionException(e);
         }
         return jsonString;
     }
+
 }

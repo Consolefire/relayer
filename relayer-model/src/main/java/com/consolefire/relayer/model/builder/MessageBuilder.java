@@ -2,23 +2,28 @@ package com.consolefire.relayer.model.builder;
 
 import com.consolefire.relayer.model.Message;
 import com.consolefire.relayer.model.MessageState;
-import com.consolefire.relayer.model.ModelConstants;
-import com.consolefire.relayer.model.conversion.DefaultObjectToStringConverter;
+import com.consolefire.relayer.model.conversion.GenericMessageParameterToStringConverter;
 import com.consolefire.relayer.model.conversion.MessageHeaderConverter;
 import com.consolefire.relayer.model.conversion.MessageMetadataConverter;
 import com.consolefire.relayer.model.conversion.MessagePayloadConverter;
 import com.consolefire.relayer.model.helper.MessageGroupIdGenerator;
 import com.consolefire.relayer.model.helper.MessageIdGenerator;
 import com.consolefire.relayer.model.helper.MessageSequenceGenerator;
+import com.consolefire.relayer.util.converter.Converter;
+import java.io.Serializable;
 import java.time.Instant;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.function.Supplier;
 import lombok.NonNull;
 
-import java.io.Serializable;
-import java.util.Optional;
-import java.util.function.Supplier;
+public abstract class MessageBuilder<
+    ID extends Serializable, PAYLOAD, HEADER, META, M extends Message<ID>,
+    B extends MessageBuilder<ID, PAYLOAD, HEADER, META, M, B>>
+    implements Supplier<M> {
 
-public abstract class MessageBuilder<ID extends Serializable, PAYLOAD, HEADER, META, M extends Message<ID>, B extends MessageBuilder<ID, PAYLOAD, HEADER, META, M, B>>
-        implements Supplier<M> {
+    private static final Converter<Object, String> OBJECT_STRING_CONVERTER = new GenericMessageParameterToStringConverter<>();
+
 
     protected ID messageId;
     protected Supplier<ID> messageIdSupplier;
@@ -38,27 +43,26 @@ public abstract class MessageBuilder<ID extends Serializable, PAYLOAD, HEADER, M
     protected Optional<MessagePayloadConverter<PAYLOAD>> messagePayloadConverter;
     protected Optional<MessageHeaderConverter<HEADER>> messageHeaderConverter;
     protected Optional<MessageMetadataConverter<META>> messageMetadataConverter;
-    public static final DefaultObjectToStringConverter<Object> stringConverter = new DefaultObjectToStringConverter<>();
 
     public MessageBuilder() {
         this(null, null,
-                null, null, null, null);
+            null, null, null, null);
     }
 
     public MessageBuilder(
-            MessageIdGenerator<ID> messageIdGenerator,
-            MessageSequenceGenerator messageSequenceGenerator) {
+        MessageIdGenerator<ID> messageIdGenerator,
+        MessageSequenceGenerator messageSequenceGenerator) {
         this(messageIdGenerator, messageSequenceGenerator,
-                null, null, null, null);
+            null, null, null, null);
     }
 
     public MessageBuilder(
-            MessageIdGenerator<ID> messageIdGenerator,
-            MessageSequenceGenerator messageSequenceGenerator,
-            MessageGroupIdGenerator<PAYLOAD, META> messageGroupIdGenerator,
-            MessagePayloadConverter<PAYLOAD> messagePayloadConverter,
-            MessageHeaderConverter<HEADER> messageHeaderConverter,
-            MessageMetadataConverter<META> messageMetadataConverter) {
+        MessageIdGenerator<ID> messageIdGenerator,
+        MessageSequenceGenerator messageSequenceGenerator,
+        MessageGroupIdGenerator<PAYLOAD, META> messageGroupIdGenerator,
+        MessagePayloadConverter<PAYLOAD> messagePayloadConverter,
+        MessageHeaderConverter<HEADER> messageHeaderConverter,
+        MessageMetadataConverter<META> messageMetadataConverter) {
         this.messageIdGenerator = Optional.ofNullable(messageIdGenerator);
         this.messageSequenceGenerator = Optional.ofNullable(messageSequenceGenerator);
         this.messageGroupIdGenerator = Optional.ofNullable(messageGroupIdGenerator);
@@ -130,37 +134,37 @@ public abstract class MessageBuilder<ID extends Serializable, PAYLOAD, HEADER, M
     }
 
     public final B usingMessageIdGenerator(
-            MessageIdGenerator<ID> messageIdGenerator) {
+        MessageIdGenerator<ID> messageIdGenerator) {
         this.messageIdGenerator = Optional.ofNullable(messageIdGenerator);
         return self();
     }
 
     public final B usingMessageSequenceGenerator(
-            MessageSequenceGenerator messageSequenceGenerator) {
+        MessageSequenceGenerator messageSequenceGenerator) {
         this.messageSequenceGenerator = Optional.ofNullable(messageSequenceGenerator);
         return self();
     }
 
     public final B usingMessageGroupIdGenerator(
-            MessageGroupIdGenerator<PAYLOAD, META> messageGroupIdGenerator) {
+        MessageGroupIdGenerator<PAYLOAD, META> messageGroupIdGenerator) {
         this.messageGroupIdGenerator = Optional.ofNullable(messageGroupIdGenerator);
         return self();
     }
 
     public final B usingMessagePayloadConverter(
-            MessagePayloadConverter<PAYLOAD> messagePayloadConverter) {
+        MessagePayloadConverter<PAYLOAD> messagePayloadConverter) {
         this.messagePayloadConverter = Optional.ofNullable(messagePayloadConverter);
         return self();
     }
 
     public final B usingMessageHeaderConverter(
-            MessageHeaderConverter<HEADER> messageHeaderConverter) {
+        MessageHeaderConverter<HEADER> messageHeaderConverter) {
         this.messageHeaderConverter = Optional.ofNullable(messageHeaderConverter);
         return self();
     }
 
     public final B usingMessageMetadataConverter(
-            MessageMetadataConverter<META> messageMetadataConverter) {
+        MessageMetadataConverter<META> messageMetadataConverter) {
         this.messageMetadataConverter = Optional.ofNullable(messageMetadataConverter);
         return self();
     }
@@ -171,10 +175,19 @@ public abstract class MessageBuilder<ID extends Serializable, PAYLOAD, HEADER, M
         M message = initMessage();
 
         message.setMessageId(
-                Optional.ofNullable(this.messageId) // set the ID provided
-                        .orElseGet(() -> Optional.ofNullable(this.messageIdSupplier).map(Supplier::get) // set from the ID Supplier
-                                .orElseGet(() -> this.messageIdGenerator.map(MessageIdGenerator::generate) // set from the ID Generator
-                                        .orElse(null))) // otherwise NULL
+            Optional.ofNullable(this.messageId) // set the ID provided
+                .orElseGet(
+                    () -> Optional.ofNullable(this.messageIdSupplier).map(Supplier::get) // set from the ID Supplier
+                        .orElseGet(
+                            () -> this.messageIdGenerator.map(MessageIdGenerator::generate) // set from the ID Generator
+                                .orElse(null))) // otherwise NULL
+        );
+
+        message.setMessageSequence(
+            Optional.ofNullable(this.messageSequence)
+                .orElseGet(() -> Optional.ofNullable(this.messageSequenceSupplier).map(Supplier::get)
+                    .orElseGet(() -> this.messageSequenceGenerator.map(MessageSequenceGenerator::next)
+                        .orElse(null)))
         );
 
         message.setState(this.state);
@@ -183,20 +196,20 @@ public abstract class MessageBuilder<ID extends Serializable, PAYLOAD, HEADER, M
         message.setUpdatedAt(this.updatedAt);
 
         message.setHeaders(this.messageHeaderConverter
-                .map(c -> c.convert(headers))
-                .orElseGet(() -> stringConverter.convert(headers)));
+            .map(c -> c.convert(headers))
+            .orElseGet(() -> OBJECT_STRING_CONVERTER.convert(headers)));
 
         message.setPayload(this.messagePayloadConverter
-                .map(c -> c.convert(payload))
-                .orElseGet(() -> stringConverter.convert(payload)));
+            .map(c -> c.convert(payload))
+            .orElseGet(() -> OBJECT_STRING_CONVERTER.convert(payload)));
 
         message.setMetadata(this.messageMetadataConverter
-                .map(c -> c.convert(metadata))
-                .orElseGet(() -> stringConverter.convert(metadata)));
+            .map(c -> c.convert(metadata))
+            .orElseGet(() -> OBJECT_STRING_CONVERTER.convert(metadata)));
 
         message.setGroupId(Optional.ofNullable(groupId)
-                .orElseGet(() -> messageGroupIdGenerator
-                        .map(g -> g.generate(payload, metadata)).orElse(ModelConstants.DEFAULT_MESSAGE_GROUP)));
+            .orElseGet(() -> messageGroupIdGenerator
+                .map(g -> g.generate(payload, metadata)).orElse(UUID.randomUUID().toString())));
 
         setAdditionalProperties(message);
 
