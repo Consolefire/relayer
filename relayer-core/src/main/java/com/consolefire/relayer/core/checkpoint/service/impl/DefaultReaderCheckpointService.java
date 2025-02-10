@@ -1,13 +1,9 @@
 package com.consolefire.relayer.core.checkpoint.service.impl;
 
-import static java.lang.String.format;
-
 import com.consolefire.relayer.core.checkpoint.CheckpointInitializationException;
 import com.consolefire.relayer.core.checkpoint.ReaderCheckpoint;
 import com.consolefire.relayer.core.checkpoint.repository.ReaderCheckpointRepository;
 import com.consolefire.relayer.core.checkpoint.service.ReaderCheckpointService;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

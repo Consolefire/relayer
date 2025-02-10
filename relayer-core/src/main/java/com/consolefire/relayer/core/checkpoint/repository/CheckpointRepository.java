@@ -1,7 +1,6 @@
 package com.consolefire.relayer.core.checkpoint.repository;
 
 import com.consolefire.relayer.core.checkpoint.Checkpoint;
-
 import java.io.Serializable;
 import java.util.Collection;
 

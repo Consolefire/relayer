@@ -1,17 +1,16 @@
 package com.consolefire.relayer.core.common;
 
 import com.consolefire.relayer.model.Message;
+import java.io.Serializable;
+import java.util.UUID;
 import lombok.NonNull;
 import lombok.With;
 
-import java.io.Serializable;
-import java.util.UUID;
-
 public record MessageWrapper<ID extends Serializable, M extends Message<ID>>(
-        @NonNull UUID readerIdentifier,
-        @NonNull String messageSourceIdentifier,
-        @With @NonNull M message)
-        implements Comparable<MessageWrapper<ID, M>>, Serializable {
+    @NonNull UUID readerIdentifier,
+    @NonNull String messageSourceIdentifier,
+    @With @NonNull M message)
+    implements Comparable<MessageWrapper<ID, M>>, Serializable {
 
     public ID getMessageId() {
         return message.getMessageId();

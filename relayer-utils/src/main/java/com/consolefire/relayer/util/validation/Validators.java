@@ -3,6 +3,13 @@ package com.consolefire.relayer.util.validation;
 public class Validators {
 
     public static final Validator<Object> NOT_NULL_VALIDATOR = new NotNullValidator<>();
+    public static final Validator<String> NOT_BLANK_VALIDATOR = new Validator<>() {
+        @Override
+        public ValidationResult validate(String value) {
+            boolean result = null != value && !value.trim().isBlank();
+            return ValidationResult.builder(this, value).withTest(() -> result).build();
+        }
+    };
 
     private enum Operator {
         AND, OR

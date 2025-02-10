@@ -1,0 +1,50 @@
+outbox:
+  app-tenant-id: application-tenant
+  tenants:
+    - identifier: application-tenant
+      data-source:
+        url: jdbc:postgresql://localhost:15432/neverland
+        username: peterpan
+        password: P3terP@n
+        schema-name: app_store
+    - identifier: TENANT-01
+      data-source:
+        url: jdbc:postgresql://localhost:15432/neverland
+        username: peterpan
+        password: P3terP@n
+        schema-name: tenant_01
+    - identifier: TENANT-02
+      data-source:
+        url: jdbc:postgresql://localhost:15432/neverland
+        username: peterpan
+        password: P3terP@n
+        schema-name: tenant_02
+    - identifier: TENANT-03
+      data-source:
+        url: jdbc:postgresql://localhost:15432/neverland
+        username: peterpan
+        password: P3terP@n
+        schema-name: tenant_03
+    - identifier: TENANT-04
+      data-source:
+        url: jdbc:postgresql://localhost:15432/neverland
+        username: peterpan
+        password: P3terP@n
+        schema-name: tenant_04
+
+server:
+  port: ${APP_SERVER_PORT:8081}
+
+spring:
+  application:
+    name: outbox-sample
+
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      format-sql: true
+
+  flyway:
+    enabled: false

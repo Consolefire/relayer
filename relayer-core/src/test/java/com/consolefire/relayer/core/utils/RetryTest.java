@@ -21,12 +21,11 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 public class RetryTest {
 
+    public static final Duration INITIAL_INTERVAL = Duration.ofMillis(500);
+    public static final Duration MAX_INTERVAL = Duration.ofMillis(600);
     private static final RetryConfig DEFAULT_RETRY_CONFIG;
     private static final RetryRegistry DEFAULT_RETRY_REGISTRY;
     private static final String NAME = "NAME-01";
-
-    public static final Duration INITIAL_INTERVAL = Duration.ofMillis(500);
-    public static final Duration MAX_INTERVAL = Duration.ofMillis(600);
 
     static {
         DEFAULT_RETRY_CONFIG = RetryConfig.custom()
@@ -38,6 +37,38 @@ public class RetryTest {
             .intervalFunction(ofExponentialBackoff(INITIAL_INTERVAL, 2.5, MAX_INTERVAL))
             .build();
         DEFAULT_RETRY_REGISTRY = RetryRegistry.of(DEFAULT_RETRY_CONFIG);
+    }
+
+    MessageHandlerResult doSomething() throws RecoverableErrorException, IOException {
+        long millis = System.currentTimeMillis();
+        log.info("Doing at: {}", millis);
+        if (millis % 3 != 0) {
+            log.error("Failed test");
+            throw new IOException();
+        }
+        return MyResult.builder()
+            .success(true).time(Instant.now()).errorMessage("none")
+            .throwable(new RecoverableErrorException()).build();
+    }
+
+    @Test
+    void shouldRetryOnRecoverableErrorException() {
+        Retry retry = DEFAULT_RETRY_REGISTRY.retry(NAME, Map.of("X", "100"));
+
+        try {
+            MessageHandlerResult r = retry.executeCallable(() -> doSomething());
+            log.info("Result: {}", r);
+        } catch (Exception e) {
+            log.error("*** Failed after {} tries", retry.getMetrics().getNumberOfTotalCalls());
+        }
+        Metrics metrics = retry.getMetrics();
+        log.info("Total calls: {}", metrics.getNumberOfTotalCalls());
+        log.info("NumberOfFailedCallsWithoutRetryAttempt: {}", metrics.getNumberOfFailedCallsWithoutRetryAttempt());
+        log.info("NumberOfFailedCallsWithRetryAttempt: {}", metrics.getNumberOfFailedCallsWithRetryAttempt());
+        log.info("NumberOfSuccessfulCallsWithRetryAttempt: {}", metrics.getNumberOfSuccessfulCallsWithRetryAttempt());
+        log.info("NumberOfSuccessfulCallsWithoutRetryAttempt: {}",
+            metrics.getNumberOfSuccessfulCallsWithoutRetryAttempt());
+        log.info("Tags:  {}", retry.getTags());
     }
 
     @Data
@@ -71,38 +102,6 @@ public class RetryTest {
             return throwable;
         }
 
-    }
-
-    MessageHandlerResult doSomething() throws RecoverableErrorException, IOException {
-        long millis = System.currentTimeMillis();
-        log.info("Doing at: {}", millis);
-        if (millis % 3 != 0) {
-            log.error("Failed test");
-            throw new IOException();
-        }
-        return MyResult.builder()
-            .success(true).time(Instant.now()).errorMessage("none")
-            .throwable(new RecoverableErrorException()).build();
-    }
-
-    @Test
-    void shouldRetryOnRecoverableErrorException() {
-        Retry retry = DEFAULT_RETRY_REGISTRY.retry(NAME, Map.of("X", "100"));
-
-        try {
-            MessageHandlerResult r = retry.executeCallable(() -> doSomething());
-            log.info("Result: {}", r);
-        } catch (Exception e) {
-            log.error("*** Failed after {} tries", retry.getMetrics().getNumberOfTotalCalls());
-        }
-        Metrics metrics = retry.getMetrics();
-        log.info("Total calls: {}", metrics.getNumberOfTotalCalls());
-        log.info("NumberOfFailedCallsWithoutRetryAttempt: {}", metrics.getNumberOfFailedCallsWithoutRetryAttempt());
-        log.info("NumberOfFailedCallsWithRetryAttempt: {}", metrics.getNumberOfFailedCallsWithRetryAttempt());
-        log.info("NumberOfSuccessfulCallsWithRetryAttempt: {}", metrics.getNumberOfSuccessfulCallsWithRetryAttempt());
-        log.info("NumberOfSuccessfulCallsWithoutRetryAttempt: {}",
-            metrics.getNumberOfSuccessfulCallsWithoutRetryAttempt());
-        log.info("Tags:  {}", retry.getTags());
     }
 
 }

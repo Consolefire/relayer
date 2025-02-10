@@ -3,7 +3,6 @@ package com.consolefire.relayer.core.data.query.builder;
 
 import com.consolefire.relayer.core.data.query.Query;
 import com.consolefire.relayer.core.data.query.QueryType;
-
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -14,15 +13,12 @@ public abstract class AbstractQueryBuilder<Q extends Query, B extends QueryBuild
 
     protected static final String PARAM_NAME_PREFIX = "param_";
     protected static final int INITIAL_INDEX = 0;
-
-    private final AtomicInteger indexer;
-
     protected final QueryType queryType;
     protected final String prefix;
-    protected String tableName;
-
     protected final Map<String, Integer> columns;
     protected final Set<String> parameters;
+    private final AtomicInteger indexer;
+    protected String tableName;
 
     public AbstractQueryBuilder(QueryType queryType, String prefix) {
         this.queryType = queryType;

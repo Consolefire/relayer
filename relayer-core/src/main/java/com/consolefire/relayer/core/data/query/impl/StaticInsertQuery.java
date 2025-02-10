@@ -4,7 +4,6 @@ package com.consolefire.relayer.core.data.query.impl;
 import com.consolefire.relayer.core.data.query.InsertQuery;
 import com.consolefire.relayer.core.data.query.QueryType;
 import com.consolefire.relayer.core.data.query.internal.DefaultStaticQuery;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,8 +24,8 @@ public final class StaticInsertQuery extends DefaultStaticQuery implements Inser
     @Override
     public int indexOf(String columnName) {
         return this.columnIndices.containsKey(columnName)
-                ? this.columnIndices.get(columnName)
-                : -1;
+            ? this.columnIndices.get(columnName)
+            : -1;
     }
 
     @Override

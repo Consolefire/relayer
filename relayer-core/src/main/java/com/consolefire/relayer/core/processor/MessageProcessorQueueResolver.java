@@ -18,7 +18,7 @@ public class MessageProcessorQueueResolver<ID extends Serializable, M extends Me
     public MessageProcessorQueueResolver(
         int processorCount, @NonNull Set<UUID> processorIdentifiers) {
         this.processorCount = processorCount;
-        if(null != processorIdentifiers && !processorIdentifiers.isEmpty()){
+        if (null != processorIdentifiers && !processorIdentifiers.isEmpty()) {
 
         }
     }
@@ -33,8 +33,6 @@ public class MessageProcessorQueueResolver<ID extends Serializable, M extends Me
                 .hash()
                 .asLong(),
             processorCount);
-
-
 
         return null;
     }
