@@ -3,8 +3,6 @@ package com.consolefire.relayer.core.distributor;
 import com.consolefire.relayer.model.Message;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * Message Distributor to distribute messages to the respective processors.

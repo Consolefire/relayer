@@ -5,9 +5,8 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class MessageInsertStatementSetter<ID extends Serializable, M extends Message<ID>> {
+public interface MessageInsertStatementSetter<ID extends Serializable, M extends Message<ID>> {
 
-    public void setProperties(PreparedStatement statement, M source) throws SQLException {
+    void setProperties(PreparedStatement statement, M source) throws SQLException;
 
-    }
 }
