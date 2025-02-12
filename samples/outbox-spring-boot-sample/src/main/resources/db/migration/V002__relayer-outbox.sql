@@ -17,6 +17,8 @@ CREATE TABLE IF NOT EXISTS outbound_message (
 	headers text NULL,
 	metadata text NULL,
 	state varchar(120) NOT NULL,
+	attempted_at timestamptz NULL,
+	attempt_count int8 NULL,
 	relayed_at timestamptz NULL,
 	relay_count int8 NULL,
 	relay_error text NULL,
@@ -29,4 +31,11 @@ CREATE INDEX IF NOT EXISTS outbound_message_group_id_idx ON outbound_message USI
 CREATE INDEX IF NOT EXISTS outbound_message_message_sequence_idx ON outbound_message USING btree (message_sequence);
 CREATE INDEX IF NOT EXISTS outbound_message_state_idx ON outbound_message USING btree (state);
 
+
+CREATE TABLE sidelined_group (
+	group_id varchar(256) NOT NULL,
+	created_at timestamptz DEFAULT now() NOT NULL,
+	updated_at timestamptz NULL,
+	CONSTRAINT sidelined_group_pk PRIMARY KEY (group_id)
+);
 

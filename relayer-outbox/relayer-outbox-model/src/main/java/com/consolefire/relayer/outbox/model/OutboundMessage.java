@@ -26,10 +26,12 @@ public class OutboundMessage<ID extends Serializable> extends Message<ID> implem
 
     @Builder(builderClassName = "DefaultBuilder")
     public OutboundMessage(ID messageId, Long messageSequence, String groupId, String payload, String headers,
-        String metadata,
-        MessageState state, Instant createdAt, Instant updatedAt, String channelName, Instant relayedAt,
-        int relayCount, String relayError) {
-        super(messageId, messageSequence, groupId, payload, headers, metadata, state, createdAt, updatedAt);
+        String metadata, MessageState state, Instant attemptedAt, int attemptCount, Instant createdAt,
+        Instant updatedAt,
+        String channelName, Instant relayedAt, int relayCount, String relayError) {
+        super(messageId, messageSequence, groupId, payload, headers, metadata, state, attemptedAt, attemptCount,
+            createdAt,
+            updatedAt);
         this.channelName = channelName;
         this.relayedAt = relayedAt;
         this.relayCount = relayCount;
