@@ -1,9 +1,11 @@
-package com.consolefire.relayer.core.reader;
+package com.consolefire.relayer.outbox.core.reader;
 
 import com.consolefire.relayer.core.data.MessageReadQueryProvider;
 import com.consolefire.relayer.core.data.MessageRowMapper;
-import com.consolefire.relayer.model.Message;
+import com.consolefire.relayer.core.reader.MessageFilterProperties;
+import com.consolefire.relayer.core.reader.MessageReader;
 import com.consolefire.relayer.model.source.MessageSourceProperties;
+import com.consolefire.relayer.outbox.model.OutboundMessage;
 import com.consolefire.relayer.util.data.DataSourceResolver;
 import com.consolefire.relayer.util.data.PreparedStatementSetter;
 import java.io.Serializable;
@@ -20,16 +22,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbstractMessageReader<ID extends Serializable, M extends Message<ID>> implements
-    MessageReader<ID, M> {
+public abstract class OutboxMessageReader<ID extends Serializable> implements
+    MessageReader<ID, OutboundMessage<ID>> {
 
     private final DataSourceResolver dataSourceResolver;
     private final MessageReadQueryProvider messageReadQueryProvider;
     private final PreparedStatementSetter<MessageFilterProperties> preparedStatementSetter;
-    private final MessageRowMapper<ID, M> messageRowMapper;
+    private final MessageRowMapper<ID, OutboundMessage<ID>> messageRowMapper;
 
     @Override
-    public Collection<M> read(MessageSourceProperties messageSourceProperties,
+    public Collection<OutboundMessage<ID>> read(MessageSourceProperties messageSourceProperties,
         Optional<MessageFilterProperties> filterPropertiesOptional) {
         if (null == messageSourceProperties || null == messageSourceProperties.getIdentifier()
             || messageSourceProperties.getIdentifier().isBlank()) {
@@ -47,22 +49,25 @@ public abstract class AbstractMessageReader<ID extends Serializable, M extends M
         if (null == readSql || readSql.isBlank()) {
             throw new RuntimeException("Invalid read SQL: null/empty");
         }
+        Collection<OutboundMessage<ID>> mCollection = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(readSql)) {
             preparedStatementSetter.setValues(messageFilterProperties, statement);
             try (ResultSet resultSet = statement.executeQuery()) {
-                Collection<M> mCollection = new ArrayList<>();
                 while (resultSet.next()) {
-                    M message = messageRowMapper.mapRow(resultSet);
+                    OutboundMessage<ID> message = messageRowMapper.mapRow(resultSet);
                     mCollection.add(message);
                 }
-                return mCollection;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+
+
+        return mCollection;
     }
 
 
