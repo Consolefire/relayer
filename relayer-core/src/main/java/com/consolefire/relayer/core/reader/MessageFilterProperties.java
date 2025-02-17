@@ -1,12 +1,13 @@
 package com.consolefire.relayer.core.reader;
 
+import com.consolefire.relayer.util.data.FilterProperties;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
-public interface MessageFilterProperties<ID extends Serializable> {
+public interface MessageFilterProperties<ID extends Serializable> extends FilterProperties {
 
     long DEFAULT_LIMIT = 1;
     int MIN_ATTEMPT_COUNT = 0;
@@ -70,9 +71,7 @@ public interface MessageFilterProperties<ID extends Serializable> {
 
     void setMaxAttemptCount(Integer maxAttemptCount);
 
-    Long getLimit();
 
-    void setLimit(Long limit);
 
 
     @Getter

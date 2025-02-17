@@ -1,4 +1,4 @@
-package ut.com.consolefire.relayer.testutils.tests;
+package com.consolefire.relayer.testutils.tests;
 
 import com.consolefire.relayer.testutils.data.TestDataSource;
 import com.consolefire.relayer.testutils.ext.DataSourceAwareExtension;

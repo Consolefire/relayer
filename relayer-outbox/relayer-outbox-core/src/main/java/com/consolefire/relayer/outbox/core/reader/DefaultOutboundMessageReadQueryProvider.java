@@ -1,6 +1,6 @@
 package com.consolefire.relayer.outbox.core.reader;
 
-public class DefaultOutboxMessageReadQueryProvider extends AbstractOutboxMessageReadQueryProvider {
+public class DefaultOutboundMessageReadQueryProvider extends AbstractOutboundMessageReadQueryProvider {
 
     private static final String SELECT_WITH_PATTERN = """
         SELECT
@@ -14,8 +14,6 @@ public class DefaultOutboxMessageReadQueryProvider extends AbstractOutboxMessage
             om.state,
             om.attempted_at,
             om.attempt_count,
-            om.relayed_at,
-            om.relay_count,
             om.created_at,
             om.updated_at
         FROM outbound_message om

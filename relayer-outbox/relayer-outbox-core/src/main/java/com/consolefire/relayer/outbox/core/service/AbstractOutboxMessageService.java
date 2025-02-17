@@ -22,8 +22,8 @@ public class AbstractOutboxMessageService<ID extends Serializable>
     protected final MessageSourceResolver messageSourceResolver;
     protected final OutboundMessageReadRepository<ID> outboundMessageReadRepository;
     protected final OutboundMessageWriteRepository<ID> outboundMessageWriteRepository;
-    protected final SidelinedGroupReadRepository<ID> sidelinedGroupReadRepository;
-    protected final SidelinedGroupWriteRepository<ID> sidelinedGroupWriteRepository;
+    protected final SidelinedGroupReadRepository sidelinedGroupReadRepository;
+    protected final SidelinedGroupWriteRepository sidelinedGroupWriteRepository;
     protected final SidelinedMessageReadRepository<ID> sidelinedMessageReadRepository;
     protected final SidelinedMessageWriteRepository<ID> sidelinedMessageWriteRepository;
 

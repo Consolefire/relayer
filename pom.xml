@@ -302,6 +302,20 @@
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <executions>
+                        <execution>
+                            <id>dependency-properties</id>
+                            <goals>
+                                <goal>properties</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>3.5.0</version>
                     <executions>
@@ -402,7 +416,7 @@
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
                         <testFailureIgnore>false</testFailureIgnore>
-                        <argLine>@{argLine} -Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                        <argLine>@{argLine} -Dfile.encoding=${project.build.sourceEncoding} -javaagent:${org.mockito:mockito-core:jar}</argLine>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -515,6 +529,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

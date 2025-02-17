@@ -1,4 +1,4 @@
-package ut.com.consolefire.relayer.testutils.tests;
+package com.consolefire.relayer.testutils.tests;
 
 import com.radcortez.flyway.test.annotation.DataSource;
 import com.radcortez.flyway.test.annotation.FlywayTest;

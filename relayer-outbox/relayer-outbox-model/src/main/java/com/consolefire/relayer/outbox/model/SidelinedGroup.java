@@ -1,16 +1,15 @@
 package com.consolefire.relayer.outbox.model;
 
-import lombok.*;
-import lombok.experimental.FieldNameConstants;
+import com.consolefire.relayer.model.ParkedGroup;
+import java.time.Instant;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-@FieldNameConstants(asEnum = true)
-public class SidelinedGroup {
+public class SidelinedGroup extends ParkedGroup {
 
-    private String groupId;
-
+    @Builder
+    public SidelinedGroup(String groupId, Instant createdAt, Instant updatedAt) {
+        super(groupId, createdAt, updatedAt);
+    }
 }
