@@ -8,21 +8,21 @@ import static org.mockito.Mockito.when;
 import com.consolefire.relayer.core.checkpoint.service.ReaderCheckpointService;
 import com.consolefire.relayer.core.common.MessageSourceResolver;
 import com.consolefire.relayer.core.common.ProcessableMessage;
+import com.consolefire.relayer.core.exception.RecoverableErrorException;
+import com.consolefire.relayer.core.exception.RelayErrorException;
+import com.consolefire.relayer.core.exception.RelayErrorExceptionTranslator;
+import com.consolefire.relayer.core.handler.MessageHandlerProvider;
+import com.consolefire.relayer.core.handler.MessageHandlerResult;
+import com.consolefire.relayer.core.handler.MessageHandlerResult.AlwaysSuccessResult;
+import com.consolefire.relayer.core.processor.MessageProcessor;
 import com.consolefire.relayer.outbox.core.data.repository.OutboundMessageReadRepository;
 import com.consolefire.relayer.outbox.core.data.repository.OutboundMessageWriteRepository;
 import com.consolefire.relayer.outbox.core.data.repository.SidelinedGroupReadRepository;
 import com.consolefire.relayer.outbox.core.data.repository.SidelinedGroupWriteRepository;
 import com.consolefire.relayer.outbox.core.data.repository.SidelinedMessageReadRepository;
 import com.consolefire.relayer.outbox.core.data.repository.SidelinedMessageWriteRepository;
-import com.consolefire.relayer.core.exception.RecoverableErrorException;
-import com.consolefire.relayer.core.exception.RelayErrorException;
-import com.consolefire.relayer.core.exception.RelayErrorExceptionTranslator;
-import com.consolefire.relayer.core.processor.MessageProcessor;
-import com.consolefire.relayer.outbox.core.service.OutboxMessageService;
-import com.consolefire.relayer.core.handler.MessageHandlerProvider;
-import com.consolefire.relayer.core.handler.MessageHandlerResult;
-import com.consolefire.relayer.core.handler.MessageHandlerResult.AlwaysSuccessResult;
 import com.consolefire.relayer.outbox.core.handler.OutboxMessageHandler;
+import com.consolefire.relayer.outbox.core.service.OutboxMessageService;
 import com.consolefire.relayer.outbox.model.OutboundMessage;
 import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.Retry.Metrics;
@@ -100,7 +100,8 @@ public class BaseOutboxMessageProcessorTest {
                 }
             }
         };
-        baseOutboxMessageProcessor = new BaseOutboxMessageProcessor<>(UUID.randomUUID(), outboxMessageService, messageHandlerProvider, relayErrorExceptionTranslator);
+        baseOutboxMessageProcessor = new BaseOutboxMessageProcessor<>(UUID.randomUUID(), outboxMessageService,
+            messageHandlerProvider, relayErrorExceptionTranslator);
     }
 
     @BeforeEach
@@ -113,7 +114,7 @@ public class BaseOutboxMessageProcessorTest {
         OutboundMessage<UUID> message = OutboundMessage.<UUID>builder()
             .messageId(UUID.randomUUID())
             .groupId(UUID.randomUUID().toString())
-            .relayCount(3)
+            .attemptCount(3)
             .build();
 
         MessageHandlerResult expectedHandlerResult = new AlwaysSuccessResult();
@@ -140,7 +141,7 @@ public class BaseOutboxMessageProcessorTest {
         OutboundMessage<UUID> message = OutboundMessage.<UUID>builder()
             .messageId(UUID.randomUUID())
             .groupId(UUID.randomUUID().toString())
-            .relayCount(3)
+            .attemptCount(3)
             .build();
 
         MessageHandlerResult expectedHandlerResult = new MessageHandlerResult() {
@@ -188,7 +189,7 @@ public class BaseOutboxMessageProcessorTest {
         OutboundMessage<UUID> message = OutboundMessage.<UUID>builder()
             .messageId(UUID.randomUUID())
             .groupId(UUID.randomUUID().toString())
-            .relayCount(3)
+            .attemptCount(3)
             .build();
 
         MessageHandlerResult expectedHandlerResult = new AlwaysSuccessResult();

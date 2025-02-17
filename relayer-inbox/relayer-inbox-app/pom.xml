@@ -4,18 +4,15 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <artifactId>relayer-inbox-app</artifactId>
     <modelVersion>4.0.0</modelVersion>
-
-    <modules>
-
-        <module>relayer-inbox-spring-boot-app</module>
-    </modules>
-    <packaging>pom</packaging>
-
     <parent>
         <artifactId>relayer-inbox</artifactId>
         <groupId>com.consolefire.relayer</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
+    <packaging>pom</packaging>
 
+    <modules>
+        <module>relayer-inbox-spring-boot-app</module>
+    </modules>
 
 </project>

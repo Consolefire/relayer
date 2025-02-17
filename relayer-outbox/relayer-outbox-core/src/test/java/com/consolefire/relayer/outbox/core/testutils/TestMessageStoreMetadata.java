@@ -2,6 +2,7 @@ package com.consolefire.relayer.outbox.core.testutils;
 
 import com.consolefire.relayer.model.Message;
 import com.consolefire.relayer.outbox.model.OutboundMessage;
+import com.consolefire.relayer.outbox.model.OutboundMessage.Fields;
 import com.consolefire.relayer.outbox.model.SidelinedMessage;
 import com.consolefire.relayer.util.jdbc.ColumnInfo;
 import com.consolefire.relayer.util.jdbc.JavaFieldInfo;
@@ -32,8 +33,8 @@ public class TestMessageStoreMetadata {
     public static final String CN_CREATED_AT = "created_at";
     public static final String CN_UPDATED_AT = "updated_at";
     public static final String CN_STATE = "state";
-    public static final String CN_RELAYED_AT = "relayed_at";
-    public static final String CN_RELAY_COUNT = "relay_count";
+    public static final String CN_ATTEMPTED_AT = "attempted_at";
+    public static final String CN_ATTEMPT_COUNT = "attempt_count";
     public static final String CN_RETRY_COUNT = "retry_count";
     public static final String CN_LAST_TRIED_AT = "last_tried_at";
 
@@ -66,11 +67,11 @@ public class TestMessageStoreMetadata {
                 fieldInfoOutboundMessage.withFieldName(Message.Fields.state.name()),
                 ColumnInfo.builder().columnName(CN_STATE).javaType(String.class).jdbcType(JDBCType.VARCHAR).serialNumber(7).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
-                fieldInfoOutboundMessage.withFieldName(OutboundMessage.Fields.relayedAt.name()),
-                ColumnInfo.builder().columnName(CN_RELAYED_AT).javaType(Date.class).jdbcType(JDBCType.TIMESTAMP_WITH_TIMEZONE).serialNumber(8).build());
+                fieldInfoOutboundMessage.withFieldName(Fields.attemptedAt.name()),
+                ColumnInfo.builder().columnName(CN_ATTEMPTED_AT).javaType(Date.class).jdbcType(JDBCType.TIMESTAMP_WITH_TIMEZONE).serialNumber(8).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
-                fieldInfoOutboundMessage.withFieldName(OutboundMessage.Fields.relayCount.name()),
-                ColumnInfo.builder().columnName(CN_RELAY_COUNT).javaType(Integer.class).jdbcType(JDBCType.INTEGER).serialNumber(9).build());
+                fieldInfoOutboundMessage.withFieldName(Fields.attemptCount.name()),
+                ColumnInfo.builder().columnName(CN_ATTEMPT_COUNT).javaType(Integer.class).jdbcType(JDBCType.INTEGER).serialNumber(9).build());
         OUTBOUND_MESSAGE_COLUMN_MAPPINGS.put(
                 fieldInfoOutboundMessage.withFieldName(Message.Fields.createdAt.name()),
                 ColumnInfo.builder().columnName(CN_CREATED_AT).javaType(Date.class).jdbcType(JDBCType.TIMESTAMP_WITH_TIMEZONE).serialNumber(10).build());

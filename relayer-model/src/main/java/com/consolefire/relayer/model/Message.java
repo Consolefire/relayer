@@ -29,14 +29,11 @@ public abstract class Message<ID extends Serializable>
     @ToString.Exclude
     protected String metadata;
     protected MessageState state;
-    protected Instant attemptedAt;
-    protected int attemptCount;
     protected Instant createdAt;
     protected Instant updatedAt;
 
     public Message(ID messageId, Long messageSequence, String groupId, String payload, String headers, String metadata,
-        MessageState state, Instant attemptedAt, int attemptCount,
-        Instant createdAt, Instant updatedAt) {
+        MessageState state, Instant createdAt, Instant updatedAt) {
         this.messageId = messageId;
         this.messageSequence = messageSequence;
         this.groupId = groupId;
@@ -44,8 +41,6 @@ public abstract class Message<ID extends Serializable>
         this.headers = headers;
         this.metadata = metadata;
         this.state = state;
-        this.attemptedAt = attemptedAt;
-        this.attemptCount = attemptCount;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
