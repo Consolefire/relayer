@@ -5,4 +5,6 @@ import java.io.Serializable;
 
 public class InboundMessage<ID extends Serializable> extends Message<ID> implements Serializable  {
 
+
+
 }

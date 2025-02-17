@@ -15,8 +15,8 @@ import lombok.NonNull;
 public class OutboundMessageBuilder<ID extends Serializable, PAYLOAD, HEADER, META, M extends OutboundMessage<ID>>
     extends MessageBuilder<ID, PAYLOAD, HEADER, META, M, OutboundMessageBuilder<ID, PAYLOAD, HEADER, META, M>> {
 
-    private Instant relayedAt;
-    private int relayCount;
+    private Instant attemptedAt;
+    private int attemptCount;
     private String relayError;
 
     public OutboundMessageBuilder() {
@@ -45,14 +45,13 @@ public class OutboundMessageBuilder<ID extends Serializable, PAYLOAD, HEADER, ME
     }
 
 
-
-    public final OutboundMessageBuilder<ID, PAYLOAD, HEADER, META, M> withRelayedAt(Instant relayedAt) {
-        this.relayedAt = relayedAt;
+    public final OutboundMessageBuilder<ID, PAYLOAD, HEADER, META, M> withAttemptedAt(Instant relayedAt) {
+        this.attemptedAt = relayedAt;
         return this;
     }
 
-    public final OutboundMessageBuilder<ID, PAYLOAD, HEADER, META, M> withRelayCount(int relayCount) {
-        this.relayCount = relayCount;
+    public final OutboundMessageBuilder<ID, PAYLOAD, HEADER, META, M> withAttemptCount(int relayCount) {
+        this.attemptCount = relayCount;
         return this;
     }
 
@@ -71,8 +70,8 @@ public class OutboundMessageBuilder<ID extends Serializable, PAYLOAD, HEADER, ME
         if (message instanceof OutboundMessage) {
             OutboundMessage<ID> outboundMessage = (OutboundMessage<ID>) message;
             outboundMessage.setChannelName(channelName);
-            outboundMessage.setRelayedAt(this.relayedAt);
-            outboundMessage.setRelayCount(this.relayCount);
+            outboundMessage.setAttemptedAt(attemptedAt);
+            outboundMessage.setAttemptCount(attemptCount);
             outboundMessage.setRelayError(this.relayError);
         }
     }

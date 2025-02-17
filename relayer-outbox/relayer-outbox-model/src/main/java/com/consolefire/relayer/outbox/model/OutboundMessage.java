@@ -20,21 +20,19 @@ import lombok.experimental.FieldNameConstants;
 public class OutboundMessage<ID extends Serializable> extends Message<ID> implements Serializable {
 
     protected String channelName;
-    protected Instant relayedAt;
-    protected int relayCount;
+    protected Instant attemptedAt;
+    protected int attemptCount;
     protected String relayError;
 
-    @Builder(builderClassName = "DefaultBuilder")
+    @Builder(builderClassName = "InternalBuilder")
     public OutboundMessage(ID messageId, Long messageSequence, String groupId, String payload, String headers,
-        String metadata, MessageState state, Instant attemptedAt, int attemptCount, Instant createdAt,
-        Instant updatedAt,
-        String channelName, Instant relayedAt, int relayCount, String relayError) {
-        super(messageId, messageSequence, groupId, payload, headers, metadata, state, attemptedAt, attemptCount,
-            createdAt,
-            updatedAt);
+        String metadata, MessageState state, Instant createdAt, Instant updatedAt, String channelName,
+        Instant attemptedAt,
+        int attemptCount, String relayError) {
+        super(messageId, messageSequence, groupId, payload, headers, metadata, state, createdAt, updatedAt);
         this.channelName = channelName;
-        this.relayedAt = relayedAt;
-        this.relayCount = relayCount;
+        this.attemptedAt = attemptedAt;
+        this.attemptCount = attemptCount;
         this.relayError = relayError;
     }
 }
