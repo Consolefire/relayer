@@ -2,10 +2,9 @@ package com.consolefire.relayer.testutils.data;
 
 import com.radcortez.flyway.test.junit.DataSourceInfo;
 import com.radcortez.flyway.test.junit.DataSourceProvider;
+import javax.sql.DataSource;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.extension.ExtensionContext;
-
-import javax.sql.DataSource;
 
 public class H2InMemoryDataSourceBuilder extends TestDataSourceBuilder implements DataSourceProvider {
 

@@ -1,10 +1,9 @@
 package com.consolefire.relayer.outbox.core.data.repository;
 
-import com.consolefire.relayer.core.data.repository.MessageReadRepository;
-import com.consolefire.relayer.outbox.model.SidelinedMessage;
-import java.io.Serializable;
+import com.consolefire.relayer.core.data.repository.ParkedGroupReadRepository;
+import com.consolefire.relayer.outbox.model.SidelinedGroup;
 
-public interface SidelinedGroupReadRepository<ID extends Serializable>
-    extends MessageReadRepository<ID, SidelinedMessage<ID>> {
+public interface SidelinedGroupReadRepository
+    extends ParkedGroupReadRepository<SidelinedGroup> {
 
 }

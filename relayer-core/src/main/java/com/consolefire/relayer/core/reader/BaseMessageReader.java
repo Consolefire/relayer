@@ -3,8 +3,12 @@ package com.consolefire.relayer.core.reader;
 import com.consolefire.relayer.core.data.MessageReadQueryProvider;
 import com.consolefire.relayer.core.data.MessageRowMapper;
 import com.consolefire.relayer.model.Message;
+import com.consolefire.relayer.model.source.InvalidMessageSourceProperties;
 import com.consolefire.relayer.model.source.MessageSourceProperties;
+import com.consolefire.relayer.util.data.DataAccessException;
 import com.consolefire.relayer.util.data.DataSourceResolver;
+import com.consolefire.relayer.util.data.InvalidDataSourceException;
+import com.consolefire.relayer.util.data.InvalidSqlException;
 import com.consolefire.relayer.util.data.PreparedStatementSetter;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -20,8 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbstractMessageReader<ID extends Serializable, M extends Message<ID>> implements
-    MessageReader<ID, M> {
+public class BaseMessageReader<ID extends Serializable, M extends Message<ID>>
+    implements MessageReader<ID, M> {
 
     private final DataSourceResolver dataSourceResolver;
     private final MessageReadQueryProvider messageReadQueryProvider;
@@ -33,19 +37,19 @@ public abstract class AbstractMessageReader<ID extends Serializable, M extends M
         Optional<MessageFilterProperties> filterPropertiesOptional) {
         if (null == messageSourceProperties || null == messageSourceProperties.getIdentifier()
             || messageSourceProperties.getIdentifier().isBlank()) {
-            throw new RuntimeException("Message source undefined");
+            throw new InvalidMessageSourceProperties("Message source undefined");
         }
         MessageFilterProperties messageFilterProperties = filterPropertiesOptional.orElse(
             MessageFilterProperties.DEFAULT);
         DataSource dataSource = dataSourceResolver.resolve(messageSourceProperties.getIdentifier());
         if (null == dataSource) {
-            throw new RuntimeException(
+            throw new InvalidDataSourceException(
                 "Could not resolve datasource for source: " + messageSourceProperties.getIdentifier());
         }
         String readSql = messageReadQueryProvider.getReadQuery();
         log.debug("Using sql: {}", readSql);
         if (null == readSql || readSql.isBlank()) {
-            throw new RuntimeException("Invalid read SQL: null/empty");
+            throw new InvalidSqlException("Invalid read SQL: null/empty");
         }
         try (Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(readSql)) {
@@ -58,10 +62,10 @@ public abstract class AbstractMessageReader<ID extends Serializable, M extends M
                 }
                 return mCollection;
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new DataAccessException("Failed to execute Query", e);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataAccessException(e);
         }
     }
 

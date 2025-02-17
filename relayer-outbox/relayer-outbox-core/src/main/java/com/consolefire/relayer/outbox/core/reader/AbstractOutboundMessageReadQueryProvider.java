@@ -2,7 +2,7 @@ package com.consolefire.relayer.outbox.core.reader;
 
 import com.consolefire.relayer.core.data.MessageReadQueryProvider;
 
-public abstract class AbstractOutboxMessageReadQueryProvider implements MessageReadQueryProvider {
+public abstract class AbstractOutboundMessageReadQueryProvider implements MessageReadQueryProvider {
 
 
     @Override

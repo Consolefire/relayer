@@ -27,5 +27,13 @@
       <artifactId>resilience4j-retry</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>relayer-testutils</artifactId>
+      <classifier>tests</classifier>
+      <scope>test</scope>
+      <type>test-jar</type>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 </project>

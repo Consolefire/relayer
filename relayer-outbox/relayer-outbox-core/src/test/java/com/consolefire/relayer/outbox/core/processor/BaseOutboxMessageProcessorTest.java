@@ -70,8 +70,8 @@ public class BaseOutboxMessageProcessorTest {
     protected MessageSourceResolver messageSourceResolver = mock();
     protected OutboundMessageReadRepository<UUID> outboundMessageReadRepository = mock();
     protected OutboundMessageWriteRepository<UUID> outboundMessageWriteRepository = mock();
-    protected SidelinedGroupReadRepository<UUID> sidelinedGroupReadRepository = mock();
-    protected SidelinedGroupWriteRepository<UUID> sidelinedGroupWriteRepository = mock();
+    protected SidelinedGroupReadRepository sidelinedGroupReadRepository = mock();
+    protected SidelinedGroupWriteRepository sidelinedGroupWriteRepository = mock();
     protected SidelinedMessageReadRepository<UUID> sidelinedMessageReadRepository = mock();
     protected SidelinedMessageWriteRepository<UUID> sidelinedMessageWriteRepository = mock();
     protected ReaderCheckpointService readerCheckpointService = mock();
