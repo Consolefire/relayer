@@ -52,7 +52,10 @@
         <fail-on-low-coverage>false</fail-on-low-coverage>
     </properties>
 
-    <url>https://sabujdas.com/relayer</url>
+    <url>https://consolefire.com/products/relayer</url>
+    <scm>
+        <url>scm:git:https://github.com/Consolefire/relayer</url>
+    </scm>
 
     <dependencyManagement>
         <dependencies>
