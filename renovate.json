@@ -6,6 +6,9 @@
   ],
   "dependencyDashboard": true,
   "maven": {},
+  "enabledManagers": [
+    "maven"
+  ],
   "versioning": "semver",
   "rangeStrategy": "replace",
   "timezone": "Europe/Berlin",
