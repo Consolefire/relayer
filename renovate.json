@@ -18,6 +18,10 @@
   },
   "vulnerabilityAlerts": {},
   "branchPrefix": "renovate/",
+  "ignoreDeps": [
+    "com.consolefire.relayer:relayer",
+    "com.consolefire.relayer:relayer-*"
+  ],
   "packageRules": [
     {
       "matchManagers": [
@@ -25,20 +29,6 @@
       ],
       "registryUrls": [
         "https://repo1.maven.org/maven2/"
-      ]
-    },
-    {
-      "enabled": false,
-      "description": "Exclude non-maven repo dependencies",
-      "matchUpdateTypes": [
-        "major",
-        "minor",
-        "patch"
-      ],
-      "groupName": "all non-major dependencies",
-      "groupSlug": "all-minor-patch",
-      "matchPackageNames": [
-        "/com.consolefire.*/"
       ]
     }
   ]
