@@ -5,9 +5,7 @@
     ":dependencyDashboard"
   ],
   "dependencyDashboard": true,
-  "maven": {
-
-  },
+  "maven": {},
   "versioning": "semver",
   "rangeStrategy": "replace",
   "timezone": "Europe/Berlin",
@@ -18,8 +16,7 @@
   "npm": {
     "enabled": false
   },
-  "vulnerabilityAlerts": {
-  },
+  "vulnerabilityAlerts": {},
   "branchPrefix": "renovate/",
   "packageRules": [
     {
@@ -33,13 +30,16 @@
     {
       "enabled": false,
       "description": "Exclude non-maven repo dependencies",
-      "matchPackagePatterns": ["com.consolefire.*"],
-      "matchUpdateTypes": ["major", "minor", "patch"],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
       "groupName": "all non-major dependencies",
-      "groupSlug": "all-minor-patch"
+      "groupSlug": "all-minor-patch",
+      "matchPackageNames": [
+        "/com.consolefire.*/"
+      ]
     }
   ]
 }
-
-
-
