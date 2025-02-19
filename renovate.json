@@ -10,7 +10,8 @@
   "rangeStrategy": "replace",
   "timezone": "Europe/Berlin",
   "major": {
-    "enabled": true
+    "enabled": true,
+    "dependencyDashboardApproval": true
   },
   "npm": {
     "enabled": false
