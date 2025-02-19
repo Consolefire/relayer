@@ -5,7 +5,12 @@
     ":dependencyDashboard"
   ],
   "dependencyDashboard": true,
-  "maven": {},
+  "maven": {
+    "repositoryCacheType": "local",
+    "repositories": [
+      "https://repo1.maven.org/maven2/"
+    ]
+  },
   "versioning": "semver",
   "rangeStrategy": "replace",
   "timezone": "Europe/Berlin",
@@ -29,3 +34,6 @@
     }
   ]
 }
+
+
+
