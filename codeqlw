@@ -1,0 +1,15 @@
+#!/bin/sh
+
+SOURCE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+echo "Source directory: $SOURCE_DIR"
+
+codeql database create ${CODEQL_DB_HOME}/relayer \
+  --overwrite \
+  --language=java-kotlin \
+  --source-root=$SOURCE_DIR
+
+codeql database analyze ${CODEQL_DB_HOME}/relayer \
+  --format=SARIF \
+  --sarif-category=java-kotlin \
+  --output=<output> \
+  <packs,queries>
