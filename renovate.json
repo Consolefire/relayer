@@ -20,11 +20,7 @@
     "enabled": false
   },
   "vulnerabilityAlerts": {},
-  "branchPrefix": "renovate/",
-  "ignoreDeps": [
-    "com.consolefire.relayer:relayer",
-    "com.consolefire.relayer:relayer-*"
-  ],
+  "branchPrefix": "dependency-upgrade/",
   "packageRules": [
     {
       "matchManagers": [
@@ -36,9 +32,17 @@
     },
     {
       "matchPackageNames": [
-        "/relayer/"
+        "/^com.consolefire.relayer:relayer/"
       ],
       "enabled": false
+    },
+    {
+      "matchPackageNames": [
+        "!/^com.consolefire.relayer:relayer/"
+      ],
+      "enabled": true,
+      "commitMessagePrefix": "DEPENDENCY-UPGRADE: ",
+      "prPriority": -1
     }
   ]
 }
