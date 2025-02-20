@@ -19,4 +19,5 @@ public class OutboundMessageReader<ID extends Serializable> extends BaseMessageR
         MessageRowMapper<ID, OutboundMessage<ID>> messageRowMapper) {
         super(dataSourceResolver, messageReadQueryProvider, preparedStatementSetter, messageRowMapper);
     }
+    
 }

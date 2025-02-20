@@ -27,6 +27,10 @@ public interface MessageFilterProperties<ID extends Serializable> extends Filter
 
     void setGroupId(String groupId);
 
+    Set<String> getGroupIds();
+
+    void setGroupIds(Set<String> groupId);
+
     Long getStartSequence();
 
     void setStartSequence(Long startSequence);
@@ -42,18 +46,6 @@ public interface MessageFilterProperties<ID extends Serializable> extends Filter
     boolean isEndSequenceInclusive();
 
     void setEndSequenceInclusive(boolean endSequenceInclusive);
-
-    Instant getCreatedBefore();
-
-    void setCreatedBefore(Instant createdBefore);
-
-    Instant getCreatedAt();
-
-    void setCreatedAt(Instant createdAt);
-
-    Instant getCreatedAfter();
-
-    void setCreatedAfter(Instant createdAfter);
 
     Instant getAttemptedBefore();
 
@@ -72,28 +64,26 @@ public interface MessageFilterProperties<ID extends Serializable> extends Filter
     void setMaxAttemptCount(Integer maxAttemptCount);
 
 
-
-
     @Getter
     @Setter
     class DefaultMessageFilterProperties<ID extends Serializable>
+        extends DefaultFilterProperties
         implements MessageFilterProperties<ID> {
 
         private ID messageId;
         private Set<ID> messageIds;
         private String groupId;
+        private Set<String> groupIds;
         private Long startSequence;
         private Long endSequence;
         private boolean startSequenceInclusive;
         private boolean endSequenceInclusive;
-        private Instant createdBefore;
-        private Instant createdAt;
-        private Instant createdAfter;
+
         private Instant attemptedBefore;
         private Instant attemptedAt;
         private Instant attemptedAfter;
         private Integer maxAttemptCount;
-        private Long limit;
+
 
         public static <I extends Serializable> DefaultMessageFilterProperties<I> getDefault() {
             DefaultMessageFilterProperties<I> props = new DefaultMessageFilterProperties<>();
