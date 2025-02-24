@@ -9,10 +9,7 @@ import java.util.Set;
 
 public interface SidelinedGroupReader<G extends SidelinedGroup> extends ParkedGroupReader<G> {
 
-    Collection<G> getAllGroups(MessageSourceProperties messageSourceProperties);
 
-    Collection<G> filterGroups(MessageSourceProperties messageSourceProperties, GroupFilterProperties filterProperties);
 
-    Set<String> getAllGroupIdentifiers(MessageSourceProperties messageSourceProperties);
 
 }
