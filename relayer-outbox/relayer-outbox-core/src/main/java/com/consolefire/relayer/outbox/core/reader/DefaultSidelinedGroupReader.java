@@ -1,11 +1,8 @@
 package com.consolefire.relayer.outbox.core.reader;
 
-import com.consolefire.relayer.core.reader.GroupFilterProperties;
 import com.consolefire.relayer.model.source.MessageSourceProperties;
 import com.consolefire.relayer.outbox.model.SidelinedGroup;
 import com.consolefire.relayer.util.data.DataSourceResolver;
-import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,18 +13,7 @@ public class DefaultSidelinedGroupReader<G extends SidelinedGroup> implements Si
 
     private final DataSourceResolver dataSourceResolver;
     private final SidelinedGroupReadQueryProvider sidelinedGroupReadQueryProvider;
-
-    @Override
-    public Collection<G> getAllGroups(MessageSourceProperties messageSourceProperties) {
-        return List.of();
-    }
-
-    @Override
-    public Collection<G> filterGroups(MessageSourceProperties messageSourceProperties,
-        GroupFilterProperties filterProperties) {
-        return List.of();
-    }
-
+    
     @Override
     public Set<String> getAllGroupIdentifiers(MessageSourceProperties messageSourceProperties) {
         return Set.of();
