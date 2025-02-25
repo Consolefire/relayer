@@ -1,0 +1,69 @@
+common:
+  infra:
+    db:
+      host: 127.0.0.1
+      port: 15432
+      database-name: neverland
+      default-schema: relay_store
+      username: peterpan
+      password: P3terP@n
+      driver-class-name: org.postgresql.Driver
+
+
+
+relayer:
+  data-source:
+    driver-class-name: ${common.infra.db.driver-class-name}
+    url: jdbc:postgresql://${common.infra.db.host}:${common.infra.db.port}/${common.infra.db.database-name}?currentSchema=${common.infra.db.default-schema}
+    username: ${common.infra.db.username}
+    password: ${common.infra.db.password}
+    pool:
+      name: POOL_RELAY_STORE
+      max-size: 8
+      min-active: 3
+  outbox:
+    message-reader:
+      enabled: true
+      outbound:
+        enabled: true
+        scheduler:
+          auto-start: true
+          job-prefix: OUTBOUND
+          schedule:
+            cron:
+              expression: "0/5 * * * * ?"
+      sidelined:
+        enabled: true
+        scheduler:
+          auto-start: true
+          job-prefix: SIDELINED
+          schedule:
+            cron:
+              expression: "0 0/12 * * * ?"
+#            fixed:
+#              rate: 11
+#              delay: 1
+#              initial-delay: 1
+
+
+server:
+  port: ${RELAYER_SERVER_PORT:9765}
+
+spring:
+  application:
+    name: outbox-relayer
+
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      format-sql: true
+
+  flyway:
+    enabled: true
+
+  quartz:
+    job-store-type: "jdbc"
+    properties:
+      org.quartz.jobStore.driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate

@@ -1,17 +1,16 @@
-package com.consolefire.relayer.sample.outbox.data;
+package com.consolefire.relayer.sample.outbox.cfg;
 
-import com.consolefire.relayer.sample.outbox.CurrentTenantContext;
 import com.consolefire.relayer.util.data.DataSourceRegistrar;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 @Slf4j
-public class TenantRoutingDataSource extends AbstractRoutingDataSource {
+public class MessageSourceRoutingDataSource extends AbstractRoutingDataSource {
 
 
     private final DataSourceRegistrar dataSourceRegistrar;
 
-    public TenantRoutingDataSource(DataSourceRegistrar dataSourceRegistrar) {
+    public MessageSourceRoutingDataSource(DataSourceRegistrar dataSourceRegistrar) {
         this.dataSourceRegistrar = dataSourceRegistrar;
     }
 
@@ -24,6 +23,6 @@ public class TenantRoutingDataSource extends AbstractRoutingDataSource {
 
     @Override
     protected Object determineCurrentLookupKey() {
-        return CurrentTenantContext.getCurrentTenantId();
+        return CurrentMessageSourceContext.getCurrentSourceId();
     }
 }

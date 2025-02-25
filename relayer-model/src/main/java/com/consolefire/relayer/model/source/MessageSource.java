@@ -1,14 +1,16 @@
 package com.consolefire.relayer.model.source;
 
-import com.consolefire.relayer.model.Message;
-import java.io.Serializable;
+import java.util.Map;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @RequiredArgsConstructor
-public abstract class MessageSource<ID extends Serializable, M extends Message<ID>> {
+public class MessageSource {
 
     private final String identifier;
+    private Map<String, Object> configuration;
 
 }

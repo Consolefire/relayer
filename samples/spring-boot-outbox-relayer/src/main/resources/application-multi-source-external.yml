@@ -1,0 +1,9 @@
+
+relayer:
+  outbox:
+    multi-source:
+      enabled: true
+      message-source-provider:
+        type: EXTERNAL
+        external:
+          url: http://localhost:9091/

@@ -1,6 +1,6 @@
 package com.consolefire.relayer.outbox.core.service;
 
-import com.consolefire.relayer.core.common.MessageSourceResolver;
+import com.consolefire.relayer.core.msgsrc.MessageSourceResolver;
 import com.consolefire.relayer.core.exception.RelayErrorCode;
 import com.consolefire.relayer.core.handler.MessageHandlerResult;
 import com.consolefire.relayer.outbox.core.data.repository.OutboundMessageReadRepository;

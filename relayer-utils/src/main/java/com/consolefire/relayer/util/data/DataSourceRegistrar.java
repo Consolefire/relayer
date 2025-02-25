@@ -1,4 +1,4 @@
-package com.consolefire.relayer.sample.outbox.data;
+package com.consolefire.relayer.util.data;
 
 import java.util.Map;
 import javax.sql.DataSource;

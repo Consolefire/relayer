@@ -1,8 +1,12 @@
-package com.consolefire.relayer.core.common;
+package com.consolefire.relayer.core.msgsrc;
 
 import java.util.List;
 
 public interface MessageSourceProvider {
+
+    enum Type {
+        INTERNAL, EXTERNAL, FIXED
+    }
 
     MessageSourceContext getMessageSource(String identifier);
 

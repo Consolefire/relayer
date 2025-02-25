@@ -1,0 +1,52 @@
+common:
+  infra:
+    db:
+      host: localhost
+      port: 15432
+      database-name: neverland
+      username: peterpan
+      password: P3terP@n
+      driver-class-name: org.postgresql.Driver
+
+
+relayer:
+  outbox:
+    multi-source:
+      enabled: true
+      message-source-provider:
+        type: FIXED
+        fixed:
+          message-sources:
+            - identifier: id-01
+              dataSource:
+                schema-name: tenant_01
+                driver-class-name: ${common.infra.db.driver-class-name}
+                url: jdbc:postgresql://${common.infra.db.host}:${common.infra.db.port}/${common.infra.db.database-name}
+                username: ${common.infra.db.username}
+                password: ${common.infra.db.password}
+            - identifier: id-02
+              dataSource:
+                schema-name: tenant_02
+                driver-class-name: ${common.infra.db.driver-class-name}
+                url: jdbc:postgresql://${common.infra.db.host}:${common.infra.db.port}/${common.infra.db.database-name}
+                username: ${common.infra.db.username}
+                password: ${common.infra.db.password}
+            - identifier: id-03
+              dataSource:
+                schema-name: tenant_03
+                driver-class-name: ${common.infra.db.driver-class-name}
+                url: jdbc:postgresql://${common.infra.db.host}:${common.infra.db.port}/${common.infra.db.database-name}
+                username: ${common.infra.db.username}
+                password: ${common.infra.db.password}
+            - identifier: id-04
+              dataSource:
+                schema-name: tenant_04
+                driver-class-name: ${common.infra.db.driver-class-name}
+                url: jdbc:postgresql://${common.infra.db.host}:${common.infra.db.port}/${common.infra.db.database-name}
+                username: ${common.infra.db.username}
+                password: ${common.infra.db.password}
+
+
+spring:
+  quartz:
+    job-store-type: "jdbc"

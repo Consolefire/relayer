@@ -1,0 +1,19 @@
+
+relayer:
+  outbox:
+    multi-source:
+      enabled: false
+    message-source:
+      identifier: single-source-app-store-relayer
+      dataSource:
+        driver-class-name: ${common.infra.db.driver-class-name}
+        url: jdbc:postgresql://${common.infra.db.host}:${common.infra.db.port}/${common.infra.db.database-name}
+        username: ${common.infra.db.username}
+        password: ${common.infra.db.password}
+        schema-name: app_store
+        pool:
+          name: POOL_MESSAGE_STORE
+          max-size: 8
+          min-active: 3
+
+

@@ -1,28 +1,36 @@
 package com.consolefire.relayer.model.source;
 
-import com.consolefire.relayer.model.data.StoreType;
+import com.consolefire.relayer.util.data.cfg.DataSourceProperties;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-public class MessageSourceProperties {
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class MessageSourceProperties implements Serializable {
 
-    private final String identifier;
-    private final StoreType storeType;
-    private final Map<String, String> properties;
-
-    public MessageSourceProperties(String identifier, StoreType storeType) {
-        this.identifier = identifier;
-        this.storeType = storeType;
-        this.properties = new HashMap<>();
+    public enum ConfigurationKey {
+        DATA_SOURCE, DATA_SOURCE_REFERENCE
     }
 
-    @Builder
-    public MessageSourceProperties(String identifier, StoreType storeType, Map<String, String> properties) {
-        this.identifier = identifier;
-        this.storeType = storeType;
-        this.properties = properties;
+    private String identifier;
+    private Map<String, Object> configuration;
+    private DataSourceProperties dataSource;
+
+    public void setConfiguration(Map<String, Object> configuration) {
+        if (null == configuration || configuration.isEmpty()) {
+            this.configuration = new HashMap<>();
+            return;
+        }
+        this.configuration = configuration;
     }
+
 }

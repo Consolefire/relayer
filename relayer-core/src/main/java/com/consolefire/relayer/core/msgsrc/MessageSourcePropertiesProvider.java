@@ -1,4 +1,4 @@
-package com.consolefire.relayer.core.common;
+package com.consolefire.relayer.core.msgsrc;
 
 public interface MessageSourcePropertiesProvider {
 
