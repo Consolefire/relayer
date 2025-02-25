@@ -40,7 +40,7 @@
         <resilience4j.version>2.3.0</resilience4j.version>
 
         <!-- Logger Dependency versions  -->
-        <logback.version>1.5.16</logback.version>
+        <logback.version>1.5.17</logback.version>
 
         <!-- Plugin versions       -->
         <jacoco-maven-plugin.version>${jacoco.version}</jacoco-maven-plugin.version>
