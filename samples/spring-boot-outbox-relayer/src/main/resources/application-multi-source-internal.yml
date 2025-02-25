@@ -1,0 +1,9 @@
+
+relayer:
+  outbox:
+    multi-source:
+      enabled: true
+      message-source-provider:
+        type: INTERNAL
+        internal:
+          provider-class-name: InternalMessageSourceProvider

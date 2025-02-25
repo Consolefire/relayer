@@ -6,7 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.consolefire.relayer.core.checkpoint.service.ReaderCheckpointService;
-import com.consolefire.relayer.core.common.MessageSourceResolver;
+import com.consolefire.relayer.core.msgsrc.MessageSourceResolver;
 import com.consolefire.relayer.core.common.ProcessableMessage;
 import com.consolefire.relayer.core.exception.RecoverableErrorException;
 import com.consolefire.relayer.core.exception.RelayErrorException;

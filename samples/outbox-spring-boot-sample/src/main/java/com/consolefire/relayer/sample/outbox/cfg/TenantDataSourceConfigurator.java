@@ -1,8 +1,8 @@
 package com.consolefire.relayer.sample.outbox.cfg;
 
 import com.consolefire.relayer.sample.outbox.OutboxConfigProperties;
-import com.consolefire.relayer.sample.outbox.data.DataSourceRegistrar;
 import com.consolefire.relayer.sample.outbox.data.TenantRoutingDataSource;
+import com.consolefire.relayer.util.data.DataSourceRegistrar;
 import io.micrometer.core.instrument.MeterRegistry;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;

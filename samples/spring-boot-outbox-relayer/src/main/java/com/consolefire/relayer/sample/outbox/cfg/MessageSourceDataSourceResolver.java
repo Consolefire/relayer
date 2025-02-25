@@ -1,10 +1,10 @@
-package com.consolefire.relayer.sample.outbox.data;
+package com.consolefire.relayer.sample.outbox.cfg;
 
-import com.consolefire.relayer.sample.outbox.OutboxConfigProperties;
-import com.consolefire.relayer.sample.outbox.props.DataSourceProperties;
-import com.consolefire.relayer.sample.outbox.props.TenantProperties;
+import com.consolefire.relayer.model.source.MessageSourceProperties;
+import com.consolefire.relayer.outbox.core.props.OutboxConfigProperties;
 import com.consolefire.relayer.util.data.DataSourceRegistrar;
 import com.consolefire.relayer.util.data.DataSourceResolver;
+import com.consolefire.relayer.util.data.cfg.DataSourceProperties;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -16,22 +16,22 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class TenantDataSourceResolver implements DataSourceRegistrar, DataSourceResolver {
+public class MessageSourceDataSourceResolver implements DataSourceRegistrar, DataSourceResolver {
 
     private final ConcurrentHashMap<String, DataSource> registeredDataSources
         = new ConcurrentHashMap<>();
 
     private final MeterRegistry meterRegistry;
 
-    public TenantDataSourceResolver(
+    public MessageSourceDataSourceResolver(
         OutboxConfigProperties outboxConfigProperties,
         MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
@@ -39,8 +39,10 @@ public class TenantDataSourceResolver implements DataSourceRegistrar, DataSource
     }
 
     private void buildDataSources(OutboxConfigProperties outboxConfigProperties) {
-        if (null != outboxConfigProperties.getTenants() && !outboxConfigProperties.getTenants().isEmpty()) {
-            for (TenantProperties tenant : outboxConfigProperties.getTenants()) {
+        Set<MessageSourceProperties> messageSourceProperties = outboxConfigProperties.getMessageSourceProperties();
+
+        if (null != messageSourceProperties && !messageSourceProperties.isEmpty()) {
+            for (MessageSourceProperties tenant : messageSourceProperties) {
                 DataSource dataSource = buildDataSource(tenant.getDataSource());
                 register(tenant.getIdentifier(), dataSource);
             }
