@@ -8,6 +8,7 @@
     <packaging>pom</packaging>
     <name>Relayer</name>
 
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <source.java.version>23</source.java.version>
@@ -39,6 +40,8 @@
         <flyway.version>11.3.3</flyway.version>
         <radcortez.flyway-juni5.version>2.1.0</radcortez.flyway-juni5.version>
         <resilience4j.version>2.3.0</resilience4j.version>
+        <assertj.version>3.27.3</assertj.version>
+        <json-unit.version>4.1.0</json-unit.version>
 
         <!-- Logger Dependency versions  -->
         <logback.version>1.5.16</logback.version>
@@ -218,6 +221,19 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${h2.database.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.javacrumbs.json-unit</groupId>
+            <artifactId>json-unit-assertj</artifactId>
+            <version>${json-unit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -417,7 +433,9 @@
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
                         <testFailureIgnore>false</testFailureIgnore>
-                        <argLine>@{argLine} -Dfile.encoding=${project.build.sourceEncoding} -javaagent:${org.mockito:mockito-core:jar}</argLine>
+                        <argLine>@{argLine} -Dfile.encoding=${project.build.sourceEncoding}
+                            -javaagent:${org.mockito:mockito-core:jar}
+                        </argLine>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -571,11 +589,13 @@
                 <module>relayer-core</module>
                 <module>relayer-outbox</module>
                 <module>relayer-utils</module>
-                <module>relayer-engine</module>
+                <module>relayer-feature</module>
                 <module>relayer-writer</module>
                 <module>relayer-testutils</module>
                 <module>jacoco-coverage-report</module>
                 <module>relayer-inbox</module>
+                <module>relayer-message-source</module>
+                <module>relayer-sidecar</module>
             </modules>
         </profile>
         <profile>
@@ -591,12 +611,38 @@
                 <module>relayer-core</module>
                 <module>relayer-outbox</module>
                 <module>relayer-utils</module>
-                <module>relayer-engine</module>
+                <module>relayer-feature</module>
                 <module>relayer-writer</module>
                 <module>relayer-testutils</module>
                 <module>jacoco-coverage-report</module>
                 <module>relayer-inbox</module>
+                <module>relayer-message-source</module>
+                <module>relayer-sidecar</module>
             </modules>
+        </profile>
+        <profile>
+            <id>sidecar-tmt</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>relayer-model</module>
+                <module>relayer-utils</module>
+                <module>relayer-message-source</module>
+                <module>relayer-sidecar</module>
+            </modules>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <version>${spring-boot.version}</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>inbox</id>
@@ -610,6 +656,7 @@
                 <module>relayer-writer</module>
                 <module>relayer-testutils</module>
                 <module>relayer-inbox</module>
+                <module>relayer-message-source</module>
                 <module>jacoco-coverage-report</module>
             </modules>
             <build>
@@ -637,6 +684,7 @@
                 <module>relayer-writer</module>
                 <module>relayer-testutils</module>
                 <module>relayer-outbox</module>
+                <module>relayer-message-source</module>
                 <module>jacoco-coverage-report</module>
             </modules>
             <build>
