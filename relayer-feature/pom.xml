@@ -7,11 +7,10 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <packaging>pom</packaging>
-
-    <artifactId>relayer-engine</artifactId>
+    <artifactId>relayer-feature</artifactId>
 
     <modules>
-
+        <module>relayer-feature-multitenancy</module>
     </modules>
 
 </project>
