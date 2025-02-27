@@ -6,26 +6,26 @@ public class DefaultMessageSourceColumnDefinitionProvider implements MessageSour
 
     @Override
     public ColumnDefinition getIdentifierColumnDefinition() {
-        return new ColumnDefinition(MessageSourceDefaultJdbcConstants.COLUMN_IDENTIFIER);
+        return new ColumnDefinition(MessageSourceDefaultJdbcConstants.COLUMN_IDENTIFIER, 1);
     }
 
     @Override
     public ColumnDefinition getConfigurationColumnDefinition() {
-        return new ColumnDefinition(MessageSourceDefaultJdbcConstants.COLUMN_CONFIGURATION);
+        return new ColumnDefinition(MessageSourceDefaultJdbcConstants.COLUMN_CONFIGURATION, 2);
     }
 
     @Override
     public ColumnDefinition getStateColumnDefinition() {
-        return new ColumnDefinition(MessageSourceDefaultJdbcConstants.COLUMN_STATE);
+        return new ColumnDefinition(MessageSourceDefaultJdbcConstants.COLUMN_STATE, 3);
     }
 
     @Override
     public ColumnDefinition getCreatedAtColumnDefinition() {
-        return new ColumnDefinition(MessageSourceDefaultJdbcConstants.COLUMN_CREATED_AT);
+        return new ColumnDefinition(MessageSourceDefaultJdbcConstants.COLUMN_CREATED_AT, 4);
     }
 
     @Override
     public ColumnDefinition getUpdatedAtColumnDefinition() {
-        return new ColumnDefinition(MessageSourceDefaultJdbcConstants.COLUMN_UPDATED_AT);
+        return new ColumnDefinition(MessageSourceDefaultJdbcConstants.COLUMN_UPDATED_AT, 5);
     }
 }

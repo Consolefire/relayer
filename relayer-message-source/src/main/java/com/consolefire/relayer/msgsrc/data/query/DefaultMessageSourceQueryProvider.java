@@ -5,11 +5,7 @@ public class DefaultMessageSourceQueryProvider implements MessageSourceQueryProv
     private static final String FIND_BY_ID_QUERY = "SELECT * FROM message_source WHERE identifier = ?";
     private static final String SAVE_OR_UPDATE_QUERY =
         "INSERT INTO message_source (identifier, configuration, state, created_at, updated_at) " +
-            "VALUES (?, ?, ?, ?, ?) " +
-            "ON CONFLICT (identifier) DO UPDATE SET " +
-            "configuration = ?, " +
-            "state = ?, " +
-            "updated_at = ?";
+            "VALUES (?, ?, ?, ?, ?) ";
     private static final String UPDATE_STATE_QUERY = "UPDATE message_source SET state = ?, updated_at = ? WHERE identifier = ?";
     private static final String UPDATE_CONFIGURATION_QUERY = "UPDATE message_source SET configuration = ?, updated_at = ? WHERE identifier = ?";
     private static final String FIND_ALL_QUERY = "SELECT * FROM message_source";

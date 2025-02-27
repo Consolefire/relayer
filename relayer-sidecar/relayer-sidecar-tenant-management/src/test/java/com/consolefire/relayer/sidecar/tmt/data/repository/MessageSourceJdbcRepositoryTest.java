@@ -97,7 +97,7 @@ class MessageSourceJdbcRepositoryTest {
     @Test
     void findById_shouldReturnMessageSource_whenFound() throws JsonProcessingException {
         MessageSource messageSource = createMessageSource("testId");
-        repository.saveOrUpdate(messageSource);
+        repository.save(messageSource);
 
         MessageSource found = repository.findById("testId");
 
@@ -125,7 +125,7 @@ class MessageSourceJdbcRepositoryTest {
     @Test
     void saveOrUpdate_shouldSaveNewMessageSource() throws JsonProcessingException {
         MessageSource messageSource = createMessageSource("newId");
-        int result = repository.saveOrUpdate(messageSource);
+        int result = repository.save(messageSource);
         assertEquals(1, result);
 
         MessageSource saved = repository.findById("newId");
@@ -134,13 +134,13 @@ class MessageSourceJdbcRepositoryTest {
     }
 
     @Test
-    void saveOrUpdate_shouldUpdateExistingMessageSource() throws JsonProcessingException {
+    void saveExistingMessageSource() throws JsonProcessingException {
         MessageSource original = createMessageSource("updateId");
-        repository.saveOrUpdate(original);
+        repository.save(original);
 
         MessageSource updated = createMessageSource("updateId");
         updated.setState(MessageSource.State.INACTIVE);
-        int result = repository.saveOrUpdate(updated);
+        int result = repository.save(updated);
 
         assertEquals(1, result);
         MessageSource fetched = repository.findById("updateId");
@@ -150,7 +150,7 @@ class MessageSourceJdbcRepositoryTest {
     @Test
     void updateState_shouldUpdateState() {
         MessageSource messageSource = createMessageSource("stateId");
-        repository.saveOrUpdate(messageSource);
+        repository.save(messageSource);
 
         int result = repository.updateState("stateId", MessageSource.State.INACTIVE);
 
@@ -162,7 +162,7 @@ class MessageSourceJdbcRepositoryTest {
     @Test
     void updateConfiguration_shouldUpdateConfiguration() throws JsonProcessingException {
         MessageSource messageSource = createMessageSource("configId");
-        repository.saveOrUpdate(messageSource);
+        repository.save(messageSource);
 
         ObjectNode newConfig = new ObjectNode(JsonNodeFactory.instance);
         newConfig.put("newKey", new ObjectNode(JsonNodeFactory.instance));
@@ -176,8 +176,8 @@ class MessageSourceJdbcRepositoryTest {
 
     @Test
     void findAll_shouldReturnAllMessageSources() throws JsonProcessingException {
-        repository.saveOrUpdate(createMessageSource("id1"));
-        repository.saveOrUpdate(createMessageSource("id2"));
+        repository.save(createMessageSource("id1"));
+        repository.save(createMessageSource("id2"));
 
         List<MessageSource> all = repository.findAll();
 

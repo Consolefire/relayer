@@ -1,7 +1,7 @@
 package com.consolefire.relayer.outbox.core.data.repository;
 
-import com.consolefire.relayer.core.data.query.Parameter;
-import com.consolefire.relayer.core.data.query.SelectQuery;
+import com.consolefire.relayer.util.query.Parameter;
+import com.consolefire.relayer.util.query.SelectQuery;
 import com.consolefire.relayer.core.data.repository.AbstractMessageReadRepository;
 import com.consolefire.relayer.core.data.utils.MessageQueryProperties;
 import com.consolefire.relayer.outbox.model.OutboundMessage;

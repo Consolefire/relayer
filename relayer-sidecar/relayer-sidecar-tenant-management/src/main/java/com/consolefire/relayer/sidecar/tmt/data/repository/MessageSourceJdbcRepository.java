@@ -50,7 +50,7 @@ public class MessageSourceJdbcRepository implements MessageSourceRepository {
     }
 
     @Override
-    public int saveOrUpdate(MessageSource messageSource) {
+    public int save(MessageSource messageSource) {
         String sql = "INSERT INTO message_source (identifier, state, configuration, updated_at) VALUES (?, ?, ?, ?) "
             + "ON CONFLICT (identifier) "
             + "DO UPDATE SET state = ?, configuration = ?, updated_at = ?";

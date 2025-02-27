@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.With;
 
 @Getter
 @Setter
@@ -29,6 +30,7 @@ public class MessageSource implements Serializable {
     @Default
     @NonNull
     private JsonNode configuration = new ObjectNode(JsonNodeFactory.instance);
+    @With
     private State state;
     private Instant createdAt;
     private Instant updatedAt;

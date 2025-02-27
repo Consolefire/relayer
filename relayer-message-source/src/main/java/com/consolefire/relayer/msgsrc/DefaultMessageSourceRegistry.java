@@ -44,7 +44,7 @@ public class DefaultMessageSourceRegistry implements MessageSourceRegistry {
             .updatedAt(Instant.now())
             .build();
 
-        int result = messageSourceRepository.saveOrUpdate(messageSource);
+        int result = messageSourceRepository.save(messageSource);
         if (result > 0) {
             log.info("MessageSource registered successfully: {}", identifier);
             notify(new MessageSourceRegisteredEvent(messageSource.getIdentifier(), messageSource.getState(),
