@@ -1,6 +1,6 @@
 package com.consolefire.relayer.core.data.utils;
 
-import com.consolefire.relayer.core.data.query.SelectQuery;
+import com.consolefire.relayer.util.query.SelectQuery;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Set;

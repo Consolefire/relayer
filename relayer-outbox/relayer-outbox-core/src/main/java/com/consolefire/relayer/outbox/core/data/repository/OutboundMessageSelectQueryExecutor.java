@@ -2,9 +2,9 @@ package com.consolefire.relayer.outbox.core.data.repository;
 
 import com.consolefire.relayer.core.data.MessageRowMapper;
 import com.consolefire.relayer.util.data.PreparedStatementSetter;
-import com.consolefire.relayer.core.data.query.Parameter;
-import com.consolefire.relayer.core.data.query.SelectQuery;
-import com.consolefire.relayer.core.data.query.exec.MessageSelectQueryExecutor;
+import com.consolefire.relayer.util.query.Parameter;
+import com.consolefire.relayer.util.query.SelectQuery;
+import com.consolefire.relayer.core.data.query.MessageSelectQueryExecutor;
 import com.consolefire.relayer.outbox.model.OutboundMessage;
 import java.io.Serializable;
 import java.sql.Connection;

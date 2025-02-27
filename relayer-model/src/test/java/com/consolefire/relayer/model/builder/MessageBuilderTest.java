@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.consolefire.relayer.model.MessageState;
 import com.consolefire.relayer.model.TestMessage;
 import com.consolefire.relayer.model.TestMessagePayload;
-import com.consolefire.relayer.model.conversion.GenericMessageParameterToJsonConverter;
+import com.consolefire.relayer.model.conversion.GenericMessageParameterToJsonStringConverter;
 import com.consolefire.relayer.model.helper.InMemoryMessageSequenceGenerator;
 import com.consolefire.relayer.model.helper.RandomLongMessageIdGenerator;
 import com.consolefire.relayer.model.helper.RandomMessageGroupIdGenerator;
@@ -138,9 +138,9 @@ class MessageBuilderTest {
             .usingMessageIdGenerator(new RandomLongMessageIdGenerator())
             .usingMessageSequenceGenerator(new InMemoryMessageSequenceGenerator())
             .usingMessageGroupIdGenerator(new RandomMessageGroupIdGenerator())
-            .usingMessagePayloadConverter(new GenericMessageParameterToJsonConverter<>(OBJECT_MAPPER))
-            .usingMessageHeaderConverter(new GenericMessageParameterToJsonConverter<>(OBJECT_MAPPER))
-            .usingMessageMetadataConverter(new GenericMessageParameterToJsonConverter<>(OBJECT_MAPPER))
+            .usingMessagePayloadConverter(new GenericMessageParameterToJsonStringConverter<>(OBJECT_MAPPER))
+            .usingMessageHeaderConverter(new GenericMessageParameterToJsonStringConverter<>(OBJECT_MAPPER))
+            .usingMessageMetadataConverter(new GenericMessageParameterToJsonStringConverter<>(OBJECT_MAPPER))
             .withTestCount(testCount)
             .withChannelName(channelName)
             .withPayload(TestMessagePayload.random())

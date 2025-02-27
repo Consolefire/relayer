@@ -9,7 +9,7 @@ public interface MessageSourceRepository {
 
     MessageSource findById(String identifier);
 
-    int saveOrUpdate(MessageSource messageSource);
+    int save(MessageSource messageSource);
 
     int updateState(String id, State state);
 

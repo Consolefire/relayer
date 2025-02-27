@@ -15,9 +15,9 @@ class GenericMessageParameterConversionTest {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     private MessageHeaderConverter<Map<String, String>> messageHeaderConverter
-        = new GenericMessageParameterToJsonConverter<>(objectMapper);
+        = new GenericMessageParameterToJsonStringConverter<>(objectMapper);
     private MessagePayloadConverter<TestMessagePayload> messagePayloadConverter
-        = new GenericMessageParameterToJsonConverter<>(objectMapper);
+        = new GenericMessageParameterToJsonStringConverter<>(objectMapper);
     private MessageMetadataConverter<Map<String, Object>> messageMetadataConverter
         = new GenericMessageParameterToStringConverter<>();
 
